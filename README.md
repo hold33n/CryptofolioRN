@@ -1,3 +1,5 @@
+[![Build status](https://build.appcenter.ms/v0.1/apps/cba90de6-01fd-4ec2-a0a9-776972db3d1e/branches/master/badge)](https://appcenter.ms)
+
 ### Installation
 
 Cryptofolio is an iOS app, it doesn't have Android support now.
