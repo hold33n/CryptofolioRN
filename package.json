@@ -3,20 +3,48 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "ios-device": "react-native run-ios --device",
+    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "currency-formatter": "^1.4.2",
+    "firebase": "^4.13.1",
+    "fuzzysort": "^1.1.1",
+    "highcharts": "^6.1.0",
+    "immutable": "^3.8.2",
+    "lodash": "^4.17.10",
+    "lottie-react-native": "^2.5.0",
+    "prop-types": "^15.6.1",
     "react": "16.3.1",
-    "react-native": "0.55.3"
+    "react-native": "0.55.3",
+    "react-native-elements": "^0.19.1",
+    "react-native-highcharts": "^1.0.2",
+    "react-native-navigation": "^1.1.457",
+    "react-native-vector-icons": "^4.6.0",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-saga": "^0.16.0",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-jest": "22.4.3",
+    "babel-plugin-module-resolver": "^3.1.1",
     "babel-preset-react-native": "4.0.0",
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "jest": "22.4.3",
+    "react-devtools": "^3.2.1",
     "react-test-renderer": "16.3.1"
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./src/assets/fonts/Rubik"
+    ]
   }
 }
