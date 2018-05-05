@@ -7,8 +7,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "ios-device": "react-native run-ios --device",
-    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'",
-    "postinstall": "rm ./node_modules/react-native/local-cli/core/__fixtures__/files/package.json"
+    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'"
   },
   "dependencies": {
     "axios": "^0.18.0",
