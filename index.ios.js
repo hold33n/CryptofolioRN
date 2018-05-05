@@ -1,14 +1,19 @@
 import { AppRegistry, View, Text } from 'react-native'
-// import App from './src/App'
+import React, {Component} from 'react'
+import App from './App'
 
-const App = () => (
-  <View>
-    <Text>Hi, late Alex!</Text>
-    <Text>Hi, late Alex!</Text>
-    <Text>Hi, late Alex!</Text>
-    <Text>Hi, late Alex!</Text>
-    <Text>Hi, late Alex!</Text>
-  </View>
-)
+// class App extends Component {
+//   render() {
+//     return (
+//       <View style={}>
+//         <Text>Hi, late Alex!</Text>
+//         <Text>Hi, late Alex!</Text>
+//         <Text>Hi, late Alex!</Text>
+//         <Text>Hi, late Alex!</Text>
+//         <Text>Hi, late Alex!</Text>
+//       </View>
+//     )
+//   }
+// }
 
 AppRegistry.registerComponent('Cryptofolio', () => App)
