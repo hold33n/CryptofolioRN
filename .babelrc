@@ -6,7 +6,8 @@
       "alias": {
         "blocks": "./src/view/blocks",
         "components": "./src/view/components",
-        "screens": "./src/view/screens"
+        "screens": "./src/view/screens",
+        "ducks": "./src/ducks"
       }
     }]
   ],
