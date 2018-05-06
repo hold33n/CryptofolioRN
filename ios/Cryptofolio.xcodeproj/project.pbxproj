@@ -31,10 +31,6 @@
 		1F9A1C69209F5551007A408E /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C65209F5550007A408E /* AppCenterCrashes.framework */; };
 		1F9A1C6A209F5551007A408E /* AppCenterReactNativeShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C66209F5551007A408E /* AppCenterReactNativeShared.framework */; };
 		1F9A1C6B209F5551007A408E /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C67209F5551007A408E /* AppCenter.framework */; };
-		1F9A1C6C209F6025007A408E /* AppCenter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C67209F5551007A408E /* AppCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1F9A1C6D209F6025007A408E /* AppCenterAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C64209F5550007A408E /* AppCenterAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1F9A1C6E209F6025007A408E /* AppCenterCrashes.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C65209F5550007A408E /* AppCenterCrashes.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1F9A1C6F209F6025007A408E /* AppCenterReactNativeShared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C66209F5551007A408E /* AppCenterReactNativeShared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F9BE9AC209E4A420037C111 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB4B98A209E398300915620 /* Lottie.framework */; };
 		1F9BE9AD209E4A420037C111 /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAB4B98A209E398300915620 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		26BFB51B5CB4446EAA19EDBD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C083AD8667574A3B970D65D6 /* libz.tbd */; };
@@ -438,10 +434,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1F9A1C6C209F6025007A408E /* AppCenter.framework in Embed Frameworks */,
-				1F9A1C6D209F6025007A408E /* AppCenterAnalytics.framework in Embed Frameworks */,
-				1F9A1C6E209F6025007A408E /* AppCenterCrashes.framework in Embed Frameworks */,
-				1F9A1C6F209F6025007A408E /* AppCenterReactNativeShared.framework in Embed Frameworks */,
 				1F9BE9AD209E4A420037C111 /* Lottie.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
