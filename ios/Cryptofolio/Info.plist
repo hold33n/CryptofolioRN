@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>
@@ -65,6 +65,19 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>CodePushDeploymentKey</key>
-	<string>16f6811b-f76c-4937-b2c5-c419567af2c0</string>
+	<string>KtCKKvWDUTM9A8HoKQfyw7BHlK8v7c91a7f2-bc5a-4206-98d8-9a0d61e1054b</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>codepush.azurewebsites.net</key>
+			<string></string>
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>
