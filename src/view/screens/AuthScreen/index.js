@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { StatusBar, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import InputField from 'components/InputField'
+import CodePush from 'components/CodePush'
 import { connect } from 'react-redux'
 import { signIn, signUp, toggleFormState, progressSelector, errorSelector, formStateSelector } from 'ducks/auth'
 import { GREY_5, GREY_80, RED } from 'colors'
@@ -22,6 +23,8 @@ class AuthScreen extends Component {
         <StatusBar
           barStyle="light-content"
         />
+
+        <CodePush />
 
         <Text style={styles.title}>{(this.props.formState === 'SignUp') ? 'Create Account' : 'Log in'}</Text>
 
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   submitButton: {
-    backgroundColor: '#1588e9',
+    backgroundColor: '#fff',
     shadowColor: '#3023AE',
     shadowOffset: {
       width: 0,
@@ -118,7 +121,7 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   submitButtonText: {
-    color: '#fff',
+    color: '#1588e9',
     textAlign: 'center',
     fontSize: 12,
     lineHeight: 12,

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import codePush from 'react-native-code-push'
 
-
-export default class CodePush extends Component {
+@codePush
+class CodePush extends Component {
   componentDidMount() {
     codePush.sync({
       updateDialog: true,
@@ -12,3 +12,5 @@ export default class CodePush extends Component {
 
   render () { return false }
 }
+
+export default CodePush
