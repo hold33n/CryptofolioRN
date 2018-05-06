@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -26,10 +27,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		1F9A1C68209F5551007A408E /* AppCenterAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C64209F5550007A408E /* AppCenterAnalytics.framework */; };
-		1F9A1C69209F5551007A408E /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C65209F5550007A408E /* AppCenterCrashes.framework */; };
-		1F9A1C6A209F5551007A408E /* AppCenterReactNativeShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C66209F5551007A408E /* AppCenterReactNativeShared.framework */; };
-		1F9A1C6B209F5551007A408E /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F9A1C67209F5551007A408E /* AppCenter.framework */; };
+		1F6E4C50209FBE24001B66D7 /* AppCenterAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C49209FBE23001B66D7 /* AppCenterAnalytics.framework */; };
+		1F6E4C51209FBE24001B66D7 /* AppCenterDistribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4A209FBE23001B66D7 /* AppCenterDistribute.framework */; };
+		1F6E4C52209FBE24001B66D7 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4B209FBE24001B66D7 /* AppCenterCrashes.framework */; };
+		1F6E4C53209FBE24001B66D7 /* AppCenterReactNativeShared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4C209FBE24001B66D7 /* AppCenterReactNativeShared.framework */; };
+		1F6E4C54209FBE24001B66D7 /* AppCenterPush.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4D209FBE24001B66D7 /* AppCenterPush.framework */; };
+		1F6E4C55209FBE24001B66D7 /* AppCenterDistributeResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F6E4C4E209FBE24001B66D7 /* AppCenterDistributeResources.bundle */; };
+		1F6E4C56209FBE24001B66D7 /* AppCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4F209FBE24001B66D7 /* AppCenter.framework */; };
 		1F9BE9AC209E4A420037C111 /* Lottie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB4B98A209E398300915620 /* Lottie.framework */; };
 		1F9BE9AD209E4A420037C111 /* Lottie.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FAB4B98A209E398300915620 /* Lottie.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		26BFB51B5CB4446EAA19EDBD /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C083AD8667574A3B970D65D6 /* libz.tbd */; };
@@ -465,11 +469,14 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		18256CFF77FA4DBB9004716E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		1B957EE70F054B3B873D9109 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Regular.ttf"; sourceTree = "<group>"; };
+		1F6E4C49209FBE23001B66D7 /* AppCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterAnalytics.framework; sourceTree = "<group>"; };
+		1F6E4C4A209FBE23001B66D7 /* AppCenterDistribute.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterDistribute.framework; sourceTree = "<group>"; };
+		1F6E4C4B209FBE24001B66D7 /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterCrashes.framework; sourceTree = "<group>"; };
+		1F6E4C4C209FBE24001B66D7 /* AppCenterReactNativeShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterReactNativeShared.framework; sourceTree = "<group>"; };
+		1F6E4C4D209FBE24001B66D7 /* AppCenterPush.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterPush.framework; sourceTree = "<group>"; };
+		1F6E4C4E209FBE24001B66D7 /* AppCenterDistributeResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AppCenterDistributeResources.bundle; sourceTree = "<group>"; };
+		1F6E4C4F209FBE24001B66D7 /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenter.framework; sourceTree = "<group>"; };
 		1F75EF1E1F144946AD49DCF8 /* LottieReactNative.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = LottieReactNative.xcodeproj; path = "../node_modules/lottie-react-native/src/ios/LottieReactNative.xcodeproj"; sourceTree = "<group>"; };
-		1F9A1C64209F5550007A408E /* AppCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterAnalytics.framework; sourceTree = "<group>"; };
-		1F9A1C65209F5550007A408E /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterCrashes.framework; sourceTree = "<group>"; };
-		1F9A1C66209F5551007A408E /* AppCenterReactNativeShared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterReactNativeShared.framework; sourceTree = "<group>"; };
-		1F9A1C67209F5551007A408E /* AppCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenter.framework; sourceTree = "<group>"; };
 		247EF3370497416FBADC74E6 /* Lottie.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = Lottie.xcodeproj; path = "../node_modules/lottie-ios/Lottie.xcodeproj"; sourceTree = "<group>"; };
 		292A24E3BE624FACAFA49728 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Lottie.framework; path = System/Library/Frameworks/Lottie.framework; sourceTree = SDKROOT; };
 		2AB79E093EE040BFAEA5BA18 /* CodePush.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = CodePush.xcodeproj; path = "../node_modules/react-native-code-push/ios/CodePush.xcodeproj"; sourceTree = "<group>"; };
@@ -533,12 +540,14 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
+				1F6E4C56209FBE24001B66D7 /* AppCenter.framework in Frameworks */,
 				FAB4B99A209E3A6E00915620 /* libLottie.a in Frameworks */,
 				FAB4B99B209E3A7800915620 /* Lottie.framework in Frameworks */,
-				1F9A1C6B209F5551007A408E /* AppCenter.framework in Frameworks */,
-				1F9A1C68209F5551007A408E /* AppCenterAnalytics.framework in Frameworks */,
-				1F9A1C69209F5551007A408E /* AppCenterCrashes.framework in Frameworks */,
-				1F9A1C6A209F5551007A408E /* AppCenterReactNativeShared.framework in Frameworks */,
+				1F6E4C50209FBE24001B66D7 /* AppCenterAnalytics.framework in Frameworks */,
+				1F6E4C52209FBE24001B66D7 /* AppCenterCrashes.framework in Frameworks */,
+				1F6E4C53209FBE24001B66D7 /* AppCenterReactNativeShared.framework in Frameworks */,
+				1F6E4C54209FBE24001B66D7 /* AppCenterPush.framework in Frameworks */,
+				1F6E4C51209FBE24001B66D7 /* AppCenterDistribute.framework in Frameworks */,
 				359EF23A20184B4493EFE1A0 /* libLottieReactNative.a in Frameworks */,
 				85F9FD9F36644C8F8E48E137 /* libReactNativeNavigation.a in Frameworks */,
 				02A9B3A186B04DC6AB17368B /* libRNVectorIcons.a in Frameworks */,
@@ -701,10 +710,13 @@
 		1F9A1C4F209F537D007A408E /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				1F9A1C67209F5551007A408E /* AppCenter.framework */,
-				1F9A1C64209F5550007A408E /* AppCenterAnalytics.framework */,
-				1F9A1C65209F5550007A408E /* AppCenterCrashes.framework */,
-				1F9A1C66209F5551007A408E /* AppCenterReactNativeShared.framework */,
+				1F6E4C4F209FBE24001B66D7 /* AppCenter.framework */,
+				1F6E4C49209FBE23001B66D7 /* AppCenterAnalytics.framework */,
+				1F6E4C4B209FBE24001B66D7 /* AppCenterCrashes.framework */,
+				1F6E4C4A209FBE23001B66D7 /* AppCenterDistribute.framework */,
+				1F6E4C4E209FBE24001B66D7 /* AppCenterDistributeResources.bundle */,
+				1F6E4C4D209FBE24001B66D7 /* AppCenterPush.framework */,
+				1F6E4C4C209FBE24001B66D7 /* AppCenterReactNativeShared.framework */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -1439,6 +1451,7 @@
 				70EEC0789A124CFAB9732662 /* Rubik-Medium.ttf in Resources */,
 				F4665E480A0542369C079D44 /* Rubik-MediumItalic.ttf in Resources */,
 				01A32F9448E84CF3ADDF8F50 /* Rubik-Regular.ttf in Resources */,
+				1F6E4C55209FBE24001B66D7 /* AppCenterDistributeResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
