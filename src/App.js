@@ -25,6 +25,13 @@ class App extends Component {
     });
   }
 
+  // componentDidMount() {
+  //   CodePush.sync({
+  //     updateDialog: true,
+  //     installMode: CodePush.InstallMode.IMMEDIATE
+  //   });
+  // }
+
   onStoreUpdate() {
     let path = store.getState()[navigatorModule].get('path')
 

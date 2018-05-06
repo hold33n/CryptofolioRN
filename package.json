@@ -7,7 +7,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "ios-device": "react-native run-ios --device",
-    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'"
+    "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'",
+    "reset-cache": "npm start -- --reset-cache"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -21,6 +22,7 @@
     "prop-types": "^15.6.1",
     "react": "16.3.1",
     "react-native": "0.55.3",
+    "react-native-code-push": "^5.3.2",
     "react-native-elements": "^0.19.1",
     "react-native-highcharts": "^1.0.2",
     "react-native-navigation": "^1.1.457",

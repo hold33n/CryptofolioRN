@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, RefreshControl, TouchableOpacity, View, Text, VirtualizedList } from 'react-native'
 import CurrencyBlock from 'blocks/CurrencyBlock'
+import CodePush from 'components/CodePush'
 import CurrenciesLoader from 'blocks/CurrenciesLoader'
 import { fetchCurrencies, refreshCurrencies, currenciesSelector, progressLoadSelector, progressReloadSelector } from 'ducks/currencies'
 import { searchPhraseSelector, searchCurrenciesResultsSelector } from 'ducks/currenciesSearch'
@@ -96,6 +97,7 @@ class CurrenciesScreen extends PureComponent {
 
     return this.props.currenciesList.length > 0 ? (
       <View>
+        <CodePush />
         <VirtualizedList
           data={searchPhrase ? searchCurrenciesResults : currenciesListData}
           style={styles.container}

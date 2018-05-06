@@ -1,3 +1,4 @@
 <resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">16f6811b-f76c-4937-b2c5-c419567af2c0</string>
     <string name="app_name">Cryptofolio</string>
 </resources>
