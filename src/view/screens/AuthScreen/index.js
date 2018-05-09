@@ -1,3 +1,4 @@
+// @flow
 import React, {Component} from 'react'
 import { StatusBar, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import InputField from 'components/InputField'
@@ -6,8 +7,22 @@ import { connect } from 'react-redux'
 import { signIn, signUp, toggleFormState, progressSelector, errorSelector, formStateSelector } from 'ducks/auth'
 import { GREY_5, GREY_80, RED } from 'colors'
 
+type State = {
+  email: string;
+  password: string;
+}
 
-class AuthScreen extends Component {
+type Props = {
+  formState: 'SignIn'|'SignUp';
+  progress: boolean;
+  error: string;
+  signUp(email: string, password: string): void;
+  signIn(email: string, password: string): void;
+  toggleFormState: void;
+}
+
+
+class AuthScreen extends Component<Props, State> {
   state = {
     email: '',
     password: ''
@@ -52,14 +67,15 @@ class AuthScreen extends Component {
           </View>
         </TouchableOpacity>
 
-        <Text style={styles.paragraph}>{(this.props.formState === 'SignUp') ? 'Already have an account?' : 'Haven\'t got an account?'}
+        <View style={styles.toggleFormControls}>
+          <Text style={styles.paragraph}>{(this.props.formState === 'SignUp') ? 'Already have an account?' : 'Haven\'t got an account?'}</Text>
           <TouchableOpacity
             style={styles.link}
             onPress={this.props.toggleFormState}
           >
             <Text style={styles.linkText}>{(this.props.formState === 'SignUp') ? 'Sign in' : 'Sign up'}</Text>
           </TouchableOpacity>
-        </Text>
+        </View>
 
       </View>
     );
@@ -89,20 +105,25 @@ const styles = StyleSheet.create({
     height: 14,
     marginBottom: 20,
   },
-  paragraph: {
-    fontSize: 15,
-    color: GREY_5,
+  toggleFormControls: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 30,
-    fontWeight: '600'
+  },
+  paragraph: {
+    color: GREY_5,
+    fontWeight: '500',
+    fontSize: 15,
   },
   link: {
-    height: 14,
-    width: 60,
     marginLeft: 5,
   },
   linkText: {
     color: '#fff',
-    fontWeight: '600'
+    fontWeight: '500',
+    fontSize: 15,
   },
   submitButton: {
     backgroundColor: '#fff',
@@ -130,7 +151,7 @@ const styles = StyleSheet.create({
 });
 
 
-export default  connect(state => ({
+export default connect((state: State) => ({
   progress: progressSelector(state),
   error: errorSelector(state),
   formState: formStateSelector(state),

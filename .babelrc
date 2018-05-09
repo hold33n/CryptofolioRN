@@ -13,6 +13,6 @@
   "presets": [
     "react-native",
     "flow",
-    "babel-preset-react-native-stage-0/decorator-support",
+    "babel-preset-react-native-stage-0/decorator-support"
   ]
 }
