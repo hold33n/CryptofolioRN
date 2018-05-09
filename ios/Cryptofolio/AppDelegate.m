@@ -6,7 +6,6 @@
 @import AppCenter;
 @import AppCenterAnalytics;
 @import AppCenterCrashes;
-@import AppCenterPush;
 @import AppCenterReactNativeShared;
 
 // **********************************************
@@ -25,6 +24,7 @@
 {
   NSURL *jsCodeLocation;
   
+  [MSAppCenter setLogLevel: MSLogLevelVerbose];
   
  
 #ifdef DEBUG
