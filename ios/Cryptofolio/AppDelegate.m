@@ -2,11 +2,11 @@
 #import <CodePush/CodePush.h>
 #import <React/RCTBundleURLProvider.h>
 
+#import "AppCenterReactNative.h"
+#import "AppCenterReactNativeAnalytics.h"
+#import "AppCenterReactNativeCrashes.h"
 
 @import AppCenter;
-@import AppCenterAnalytics;
-@import AppCenterCrashes;
-@import AppCenterReactNativeShared;
 
 // **********************************************
 // *** DON'T MISS: THE NEXT LINE IS IMPORTANT ***
@@ -25,8 +25,13 @@
   NSURL *jsCodeLocation;
   
   [MSAppCenter setLogLevel: MSLogLevelVerbose];
-  
- 
+
+  [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:YES];
+
+  [AppCenterReactNativeCrashes register];
+
+  [AppCenterReactNative register];
+
 #ifdef DEBUG
   //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
