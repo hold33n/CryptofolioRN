@@ -27,8 +27,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		1F34A0FD20A23CF6008D46A5 /* AppCenterAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C49209FBE23001B66D7 /* AppCenterAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1F34A12B20A23CFE008D46A5 /* AppCenter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4F209FBE24001B66D7 /* AppCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1F34A14620A26B5A008D46A5 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F34A14520A26B5A008D46A5 /* AppCenter-Config.plist */; };
 		1F6E4C50209FBE24001B66D7 /* AppCenterAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C49209FBE23001B66D7 /* AppCenterAnalytics.framework */; };
 		1F6E4C51209FBE24001B66D7 /* AppCenterDistribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4A209FBE23001B66D7 /* AppCenterDistribute.framework */; };
@@ -441,8 +439,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				1F9BE9AD209E4A420037C111 /* Lottie.framework in Embed Frameworks */,
-				1F34A0FD20A23CF6008D46A5 /* AppCenterAnalytics.framework in Embed Frameworks */,
-				1F34A12B20A23CFE008D46A5 /* AppCenter.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
