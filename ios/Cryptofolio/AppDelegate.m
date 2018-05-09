@@ -3,10 +3,11 @@
 #import <React/RCTBundleURLProvider.h>
 
 
+#import "AppDelegate.h"
+#import <AppCenterAnalytics/AppCenterAnalytics.h>
+#import <AppCenterCrashes/AppCenterCrashes.h>
+#import <AppCenterReactNativeShared/AppCenterReactNativeShared.h>
 @import AppCenter;
-@import AppCenterAnalytics;
-@import AppCenterCrashes;
-@import AppCenterReactNativeShared;
 
 // **********************************************
 // *** DON'T MISS: THE NEXT LINE IS IMPORTANT ***
@@ -25,6 +26,13 @@
   NSURL *jsCodeLocation;
   
   [MSAppCenter setLogLevel: MSLogLevelVerbose];
+  
+  
+  [AppCenterCrashes register];  // Initialize AppCenter crashes
+  
+  [AppCenterAnalytics registerWithInitiallyEnabled:true];  // Initialize AppCenter analytics
+  
+  [AppCenterReactNative register];  // Initialize AppCenter
   
  
 #ifdef DEBUG

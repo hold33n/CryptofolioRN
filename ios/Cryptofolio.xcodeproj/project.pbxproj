@@ -1670,6 +1670,12 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/lottie-ios/lottie-ios/Classes/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/Vendor/AppCenterAnalytics.framework/**",
+					"$(SRCROOT)/Vendor/AppCenterCrashes.framework",
+					"$(SRCROOT)/Vendor/AppCenterReactNativeShared.framework/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative/**",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics/**",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes/**",
 				);
 				INFOPLIST_FILE = Cryptofolio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -1705,6 +1711,12 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/lottie-ios/lottie-ios/Classes/**",
 					"$(SRCROOT)/../node_modules/react-native-code-push/ios/CodePush/**",
+					"$(SRCROOT)/Vendor/AppCenterAnalytics.framework/**",
+					"$(SRCROOT)/Vendor/AppCenterCrashes.framework",
+					"$(SRCROOT)/Vendor/AppCenterReactNativeShared.framework/**",
+					"$(SRCROOT)/../node_modules/appcenter/ios/AppCenterReactNative/**",
+					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics/**",
+					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes/**",
 				);
 				INFOPLIST_FILE = Cryptofolio/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
