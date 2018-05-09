@@ -7,6 +7,7 @@
 
 ; Ignore unexpected extra "@providesModule"
 .*/node_modules/.*/node_modules/fbjs/.*
+.*/node_modules/protobufjs/.*
 
 ; Ignore duplicate module providers
 ; For RN Apps installed via npm, "Libraries" folder is inside
@@ -18,6 +19,7 @@
 
 ; Ignore metro
 .*/node_modules/metro/.*
+.*/node_modules/immutable/.*
 
 [include]
 
@@ -25,6 +27,7 @@
 node_modules/react-native/Libraries/react-native/react-native-interface.js
 node_modules/react-native/flow/
 node_modules/react-native/flow-github/
+
 
 [options]
 emoji=true
@@ -34,6 +37,14 @@ module.system=haste
 munge_underscores=true
 
 module.name_mapper='^[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|webp\|m4v\|mov\|mp4\|mpeg\|mpg\|webm\|aac\|aiff\|caf\|m4a\|mp3\|wav\|html\|pdf\)$' -> 'RelativeImageStub'
+
+module.name_mapper='blocks' -> '<PROJECT_ROOT>/src/view/blocks'
+module.name_mapper='components' -> '<PROJECT_ROOT>/src/view/components'
+module.name_mapper='screens' -> '<PROJECT_ROOT>/src/view/screens'
+module.name_mapper='ducks' -> '<PROJECT_ROOT>/src/ducks'
+module.name_mapper='colors' -> '<PROJECT_ROOT>/src/colors.js'
+module.name_mapper='config' -> '<PROJECT_ROOT>/src/config.js'
+
 
 module.file_ext=.js
 module.file_ext=.jsx

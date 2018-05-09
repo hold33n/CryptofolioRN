@@ -2,6 +2,13 @@
 #import <CodePush/CodePush.h>
 #import <React/RCTBundleURLProvider.h>
 
+
+@import AppCenter;
+@import AppCenterAnalytics;
+@import AppCenterCrashes;
+@import AppCenterPush;
+@import AppCenterReactNativeShared;
+
 // **********************************************
 // *** DON'T MISS: THE NEXT LINE IS IMPORTANT ***
 // **********************************************
@@ -17,8 +24,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
+  
+  
+ 
 #ifdef DEBUG
-  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  //jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
 #else
   jsCodeLocation = [CodePush bundleURL];
 #endif

@@ -1,9 +1,19 @@
+// @flow
 import React, {PureComponent} from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import currencyFormatter from 'currency-formatter'
 import { GREY_MARKER_BG, GREEN, RED } from 'colors'
 
-class CurrencyBlock extends PureComponent {
+type Props = {
+  item : {
+    name: string,
+    symbol: string,
+    price_usd: number,
+    percent_change_24h: number
+  }
+}
+
+class CurrencyBlock extends PureComponent<Props> {
   render() {
     
     const { item: {
@@ -16,12 +26,12 @@ class CurrencyBlock extends PureComponent {
     return (
       <View style={styles.currencyContainer}>
         <View style={styles.grid}>
-          <View style={styles.col}>
+          <View>
             <View style={styles.currencySymbol}>
               <Text style={styles.currencySymbolText}>{price_usd ? symbol : name}</Text>
             </View>
           </View>
-          <View style={styles.col}>
+          <View>
             <Text style={styles.currencyPrice}>
               {price_usd ?
                 (
@@ -105,11 +115,5 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   }
 })
-
-CurrencyBlock.propTypes = {
-  // item: PropTypes.shape({
-  //   name: PropTypes.string.isRequired
-  // }).isRequired
-}
 
 export default CurrencyBlock

@@ -9,6 +9,7 @@
             <path value="file://$PROJECT_DIR$/src/view/blocks" />
             <path value="file://$PROJECT_DIR$/src/view/screens" />
             <path value="file://$PROJECT_DIR$/src/view/components" />
+            <path value="file://$PROJECT_DIR$/src" />
           </resourceRoots>
         </entryData>
       </entry>

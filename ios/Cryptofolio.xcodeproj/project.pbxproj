@@ -27,6 +27,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		1F34A0FD20A23CF6008D46A5 /* AppCenterAnalytics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C49209FBE23001B66D7 /* AppCenterAnalytics.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F34A12B20A23CFE008D46A5 /* AppCenter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4F209FBE24001B66D7 /* AppCenter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1F34A14620A26B5A008D46A5 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F34A14520A26B5A008D46A5 /* AppCenter-Config.plist */; };
 		1F6E4C50209FBE24001B66D7 /* AppCenterAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C49209FBE23001B66D7 /* AppCenterAnalytics.framework */; };
 		1F6E4C51209FBE24001B66D7 /* AppCenterDistribute.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4A209FBE23001B66D7 /* AppCenterDistribute.framework */; };
 		1F6E4C52209FBE24001B66D7 /* AppCenterCrashes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6E4C4B209FBE24001B66D7 /* AppCenterCrashes.framework */; };
@@ -438,6 +441,8 @@
 			dstSubfolderSpec = 10;
 			files = (
 				1F9BE9AD209E4A420037C111 /* Lottie.framework in Embed Frameworks */,
+				1F34A0FD20A23CF6008D46A5 /* AppCenterAnalytics.framework in Embed Frameworks */,
+				1F34A12B20A23CFE008D46A5 /* AppCenter.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -469,6 +474,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		18256CFF77FA4DBB9004716E /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		1B957EE70F054B3B873D9109 /* Rubik-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rubik-Regular.ttf"; path = "../src/assets/fonts/Rubik/Rubik-Regular.ttf"; sourceTree = "<group>"; };
+		1F34A14520A26B5A008D46A5 /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		1F6E4C49209FBE23001B66D7 /* AppCenterAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterAnalytics.framework; sourceTree = "<group>"; };
 		1F6E4C4A209FBE23001B66D7 /* AppCenterDistribute.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterDistribute.framework; sourceTree = "<group>"; };
 		1F6E4C4B209FBE24001B66D7 /* AppCenterCrashes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppCenterCrashes.framework; sourceTree = "<group>"; };
@@ -671,6 +677,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				1F34A14520A26B5A008D46A5 /* AppCenter-Config.plist */,
 			);
 			name = Cryptofolio;
 			sourceTree = "<group>";
@@ -1444,6 +1451,7 @@
 				E630AAB80480405284AB5642 /* Rubik-Black.ttf in Resources */,
 				0378C15075C64E429913AAF3 /* Rubik-BlackItalic.ttf in Resources */,
 				056E8F98696340529FE9F15E /* Rubik-Bold.ttf in Resources */,
+				1F34A14620A26B5A008D46A5 /* AppCenter-Config.plist in Resources */,
 				9E9F8833AB5D40779A79FAD7 /* Rubik-BoldItalic.ttf in Resources */,
 				E04F86FE788B4CA281A64144 /* Rubik-Italic.ttf in Resources */,
 				9455614762AC467581B5AE0D /* Rubik-Light.ttf in Resources */,
@@ -1657,7 +1665,7 @@
 				DEVELOPMENT_TEAM = 6Z4ZK8NDHA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)/Vendor/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1691,7 +1699,7 @@
 				DEVELOPMENT_TEAM = 6Z4ZK8NDHA;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)/Vendor/**",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
