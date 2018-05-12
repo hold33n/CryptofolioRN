@@ -4,7 +4,7 @@ import { StatusBar, StyleSheet, View, Text, TouchableOpacity } from 'react-nativ
 import InputField from 'components/InputField'
 import CodePush from 'components/CodePush'
 import { connect } from 'react-redux'
-import { signIn, signUp, toggleFormState, progressSelector, errorSelector, formStateSelector } from 'ducks/auth'
+import { signIn, signUp, toggleFormState, progressSelector, errorSelector, formStateSelector } from 'ducks/auth/index'
 import { GREY_5, GREY_80, RED } from 'colors'
 
 type State = {

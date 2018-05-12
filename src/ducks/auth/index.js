@@ -1,37 +1,39 @@
+// @flow
+
 import {all, take, put, call, select} from 'redux-saga/effects'
-import {eventChannel} from 'redux-saga'
-import {appName} from '../config'
-import {NAVIGATE} from './navigator'
-import firebase from 'firebase'
+import {appName, baseURL} from 'config'
+import {NAVIGATE} from '../navigator'
+import axios from 'axios'
 import {createSelector} from 'reselect'
 import {OrderedMap} from 'immutable'
+import type {AuthAction} from './types'
 
 /**
  * Constants
  * */
-export const moduleName = 'auth'
-const prefix = `${appName}/${moduleName}`
+export const moduleName: string = 'auth'
+const prefix: string = `${appName}/${moduleName}`
 
 
-export const SIGN_IN_REQUEST = `${prefix}/SIGN_IN_REQUEST`
-export const SIGN_IN_START = `${prefix}/SIGN_IN_START`
-export const SIGN_IN_SUCCESS = `${prefix}/SIGN_IN_SUCCESS`
-export const SIGN_IN_FAIL = `${prefix}/SIGN_IN_FAIL`
+export const SIGN_IN_REQUEST: string = `${prefix}/SIGN_IN_REQUEST`
+export const SIGN_IN_START: string = `${prefix}/SIGN_IN_START`
+export const SIGN_IN_SUCCESS: string = `${prefix}/SIGN_IN_SUCCESS`
+export const SIGN_IN_FAIL: string = `${prefix}/SIGN_IN_FAIL`
 
-export const SIGN_UP_REQUEST = `${prefix}/SIGN_UP_REQUEST`
-export const SIGN_UP_START = `${prefix}/SIGN_UP_START`
-export const SIGN_UP_SUCCESS = `${prefix}/SIGN_UP_SUCCESS`
-export const SIGN_UP_FAIL  = `${prefix}/SIGN_UP_FAIL`
+export const SIGN_UP_REQUEST: string = `${prefix}/SIGN_UP_REQUEST`
+export const SIGN_UP_START: string = `${prefix}/SIGN_UP_START`
+export const SIGN_UP_SUCCESS: string = `${prefix}/SIGN_UP_SUCCESS`
+export const SIGN_UP_FAIL: string  = `${prefix}/SIGN_UP_FAIL`
 
-export const SIGN_OUT_REQUEST = `${prefix}/SIGN_OUT_REQUEST`
-export const SIGN_OUT_START = `${prefix}/SIGN_OUT_START`
-export const SIGN_OUT_SUCCESS = `${prefix}/SIGN_OUT_SUCCESS`
-export const SIGN_OUT_FAIL = `${prefix}/SIGN_OUT_FAIL`
+export const SIGN_OUT_REQUEST: string = `${prefix}/SIGN_OUT_REQUEST`
+export const SIGN_OUT_START: string = `${prefix}/SIGN_OUT_START`
+export const SIGN_OUT_SUCCESS: string = `${prefix}/SIGN_OUT_SUCCESS`
+export const SIGN_OUT_FAIL: string = `${prefix}/SIGN_OUT_FAIL`
 
-export const TOGGLE_FORM_STATE_REQUEST = `${prefix}/TOGGLE_FORM_STATE_REQUEST`
-export const TOGGLE_FORM_STATE_START = `${prefix}/TOGGLE_FORM_STATE_START`
-export const TOGGLE_FORM_STATE_SUCCESS = `${prefix}/TOGGLE_FORM_STATE_SUCCESS`
-export const TOGGLE_FORM_STATE_FAIL = `${prefix}/TOGGLE_FORM_STATE_FAIL`
+export const TOGGLE_FORM_STATE_REQUEST: string = `${prefix}/TOGGLE_FORM_STATE_REQUEST`
+export const TOGGLE_FORM_STATE_START: string = `${prefix}/TOGGLE_FORM_STATE_START`
+export const TOGGLE_FORM_STATE_SUCCESS: string = `${prefix}/TOGGLE_FORM_STATE_SUCCESS`
+export const TOGGLE_FORM_STATE_FAIL: string = `${prefix}/TOGGLE_FORM_STATE_FAIL`
 
 
 /**
@@ -44,11 +46,14 @@ export const AuthState = new OrderedMap({
   error: null,
 })
 
-export default function authReducer(state = AuthState, action) {
+
+
+
+export default function authReducer(state: any = AuthState, action: AuthAction) {
   const { type, payload } = action
 
   switch (type) {
-    
+
   case (SIGN_IN_START):
   case (SIGN_UP_START):
   case (SIGN_OUT_START):
@@ -57,6 +62,7 @@ export default function authReducer(state = AuthState, action) {
       .set('error', null)
 
   case (SIGN_IN_SUCCESS):
+  case (SIGN_UP_SUCCESS):
     return state
       .set('progress', false)
       .set('error', null)
@@ -68,7 +74,7 @@ export default function authReducer(state = AuthState, action) {
       .set('error', null)
       .set('user', null)
 
-  case (TOGGLE_FORM_STATE_SUCCESS):
+  case ('cryptofolio/auth/TOGGLE_FORM_STATE_SUCCESS'):
     return state
       .set('progress', false)
       .set('error', null)
@@ -80,7 +86,7 @@ export default function authReducer(state = AuthState, action) {
     return state
       .set('progress', false)
       .set('error', payload.error)
-  
+
   default:
     return state
   }
@@ -89,7 +95,7 @@ export default function authReducer(state = AuthState, action) {
 /**
  * Selectors
  * */
-export const stateSelector = state => state[moduleName]
+export const stateSelector = (state: any) => state[moduleName]
 export const userSelector = createSelector(stateSelector, state => state.get('user') )
 export const progressSelector = createSelector(stateSelector, state => state.get('progress'))
 export const errorSelector = createSelector(stateSelector, state => state.get('error'))
@@ -99,21 +105,21 @@ export const formStateSelector = createSelector(stateSelector, state => state.ge
  * Action Creators
  * */
 
-export function signIn(email, password) {
+export function signIn(email: string, password: string): AuthAction {
   return {
     type: SIGN_IN_REQUEST,
     payload: { email, password }
   }
 }
 
-export function signUp(email, password) {
+export function signUp(email: string, password: string): AuthAction {
   return {
     type: SIGN_UP_REQUEST,
     payload: { email, password }
   }
 }
 
-export function signOut(email, password) {
+export function signOut(email: string, password: string): AuthAction {
   return {
     type: SIGN_OUT_REQUEST,
     payload: { email, password }
@@ -145,25 +151,56 @@ function* signInSaga() {
 
     try {
 
-      const auth = firebase.auth()
-
-      yield call([auth, auth.signInAndRetrieveDataWithEmailAndPassword], email, password)
-
-
-    } catch({ code, message }) {
-      let error
-
-      if (code === 'auth/wrong-password') {
-        error = 'Invalid password.'
-      } else if (code === 'auth/user-not-found') {
-        error = 'User not found.'
-      } else {
-        error = message
+      const signInRef = {
+        method: 'post',
+        url: '/sign-in',
+        baseURL,
+        data: {
+          email,
+          password
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }
+
+      console.log('sss :: ', signInRef)
+
+
+      const {
+        data : {
+          user
+        }
+      } = yield call(axios, signInRef)
+
+      console.log(user)
+
+
+      yield put({
+        type: SIGN_IN_SUCCESS,
+        payload: { user }
+      })
+
+      yield put({
+        type: NAVIGATE,
+        payload: {path: 'appRoot'}
+      })
+
+
+    } catch(error) {
+      // let error
+      //
+      // if (code === 'auth/wrong-password') {
+      //   error = 'Invalid password.'
+      // } else if (code === 'auth/user-not-found') {
+      //   error = 'User not found.'
+      // } else {
+      //   error = message
+      // }
 
       yield put({
         type: SIGN_IN_FAIL,
-        payload: { error, code }
+        payload: { error }
       })
     }
   }
@@ -183,26 +220,48 @@ function* signUpSaga() {
 
     try {
 
-      const auth = firebase.auth()
-
-      yield call([auth, auth.createUserWithEmailAndPassword], email, password)
-
-      yield put({ type: SIGN_UP_SUCCESS })
-
-
-    } catch({ code, message }) {
-
-      let error
-
-      if (code === 'auth/weak-password') {
-        error = 'The password is too weak.'
-      } else {
-        error = message
+      const signUpRef = {
+        method: 'post',
+        url: '/sign-up',
+        baseURL,
+        data: {
+          email,
+          password
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
       }
+
+      const {
+        data : {
+          user
+        }
+      } = yield call(axios, signUpRef)
+
+      yield put({
+        type: SIGN_UP_SUCCESS,
+        payload: { user }
+      })
+
+      yield put({
+        type: NAVIGATE,
+        payload: {path: 'appRoot'}
+      })
+
+    } catch(error) {
+
+      // let error
+      //
+      // if (code === 'auth/weak-password') {
+      //   error = 'The password is too weak.'
+      // } else {
+      //   error = message
+      // }
 
       yield put({
         type: SIGN_IN_FAIL,
-        payload: { error }
+        payload: { error: error.message }
       })
     }
   }
@@ -220,9 +279,6 @@ function* signOutSaga() {
 
     try {
 
-      const auth = firebase.auth()
-
-      yield call([auth, auth.signOut])
 
       yield put({ type: SIGN_OUT_SUCCESS })
 
@@ -277,45 +333,12 @@ function* toggleFormStateSaga() {
   }
 }
 
-const createAuthChannel = () => eventChannel(emit => firebase.auth().onAuthStateChanged(user => emit({ user })))
 
-function* watchStatusChangeSaga () {
-  try {
-
-    const chan = yield call(createAuthChannel)
-    while (true) {
-      const {user} = yield take(chan)
-
-      if (user) {
-        yield put({
-          type: SIGN_IN_SUCCESS,
-          payload: {user}
-        })
-
-        yield put({
-          type: NAVIGATE,
-          payload: {path: 'appRoot'}
-        })
-
-      } else {
-        // yield put({
-        //   type: SIGN_IN_FAIL,
-        //   payload: { error: 'Email or password are not valid' }
-        // })
-      }
-    }
-
-  } catch(error) {
-    console.log(error)
-  }
-}
-
-export function* saga() {
+export function* saga(): any {
   yield all([
     signInSaga(),
     signUpSaga(),
     signOutSaga(),
     toggleFormStateSaga(),
-    watchStatusChangeSaga(),
   ])
 }

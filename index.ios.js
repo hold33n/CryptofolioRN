@@ -1,4 +1,4 @@
-import './src/fbConfig'
+// import './src/fbConfig'
 import App from './src/App'
 
 const app = new App()

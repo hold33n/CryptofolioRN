@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { StatusBar, TouchableOpacity, StyleSheet, Text, View} from 'react-native'
-import { userSelector, signOut } from 'ducks/auth'
+import { userSelector, signOut } from 'ducks/auth/index'
 import { List, ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import { GREY_5, GREY_80, GREY_100 } from 'colors'
