@@ -2,58 +2,69 @@
 
 export type User = {|
   email: string,
-  id: string
-|}
+  id?: string,
+  password?: string;
+|};
 
 
-export type AuthAction =
-  | { type: 'cryptofolio/auth/SIGN_IN_REQUEST',
+export type State = {
+  +user: null | User,
+  +progress: boolean,
+  +formState: 'SignIn' | 'SignUp',
+  +error: null | string,
+};
+
+
+export type Action =
+  | { +type: 'SIGN_IN_REQUEST'
     }
-  | { type: 'cryptofolio/auth/SIGN_IN_START',
+  | { +type: 'SIGN_IN_START'
     }
-  | { type: 'cryptofolio/auth/SIGN_IN_SUCCESS',
-      payload: {|
-        user: User
-      |}
-    }
-  | { type: 'cryptofolio/auth/SIGN_IN_FAIL',
-      payload: {|
-        error: string
-      |}
-    }
-  | { type: 'cryptofolio/auth/SIGN_UP_REQUEST'
-    }
-  | { type: 'cryptofolio/auth/SIGN_UP_START'
-    }
-  | { type: 'cryptofolio/auth/SIGN_UP_SUCCESS',
+  | { +type: 'SIGN_IN_SUCCESS',
       payload: {
         user: User
       }
     }
-  | { type: 'cryptofolio/auth/SIGN_UP_FAIL',
+  | { +type: 'SIGN_IN_FAIL',
       payload: {
         error: string
       }
     }
-  | { type: 'cryptofolio/auth/SIGN_OUT_REQUEST'
+  | { +type: 'SIGN_UP_REQUEST'
     }
-  | { type: 'cryptofolio/auth/SIGN_OUT_START'
+  | { +type: 'SIGN_UP_START'
     }
-  | { type: 'cryptofolio/auth/SIGN_OUT_SUCCESS'
+  | { +type: 'SIGN_UP_SUCCESS',
+      payload: {
+        user: User
+      }
     }
-  | { type: 'cryptofolio/auth/SIGN_OUT_FAIL',
+  | { +type: 'SIGN_UP_FAIL',
       payload: {
         error: string
       }
     }
-  | { type: 'cryptofolio/auth/TOGGLE_FORM_STATE_REQUEST'
+  | { +type: 'SIGN_OUT_REQUEST'
     }
-  | { type: 'cryptofolio/auth/TOGGLE_FORM_STATE_START'
+  | { +type: 'SIGN_OUT_START'
     }
-  | { type: 'cryptofolio/auth/TOGGLE_FORM_STATE_SUCCESS',
-      payload: { formState: 'SignIn' | 'SignUp' }
+  | { +type: 'SIGN_OUT_SUCCESS'
     }
-  | { type: 'cryptofolio/auth/TOGGLE_FORM_STATE_FAIL',
+  | { +type: 'SIGN_OUT_FAIL',
+      payload: {
+        error: string
+      }
+    }
+  | { +type: 'TOGGLE_FORM_STATE_REQUEST'
+    }
+  | { +type: 'TOGGLE_FORM_STATE_START'
+    }
+  | { +type: 'TOGGLE_FORM_STATE_SUCCESS',
+      payload: {
+        formState: 'SignIn' | 'SignUp'
+      }
+    }
+  | { +type: 'TOGGLE_FORM_STATE_FAIL',
       payload: {
         error: string
       }
