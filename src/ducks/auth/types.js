@@ -1,5 +1,11 @@
 // @flow
 
+import { SIGN_IN_REQUEST, SIGN_IN_START, SIGN_IN_SUCCESS, SIGN_IN_FAIL,
+  SIGN_UP_REQUEST, SIGN_UP_START, SIGN_UP_SUCCESS, SIGN_UP_FAIL,
+  SIGN_OUT_REQUEST, SIGN_OUT_START, SIGN_OUT_SUCCESS, SIGN_OUT_FAIL,
+  TOGGLE_FORM_STATE_REQUEST, TOGGLE_FORM_STATE_START, TOGGLE_FORM_STATE_SUCCESS, TOGGLE_FORM_STATE_FAIL } from './index';
+
+
 export type User = {|
   email: string,
   id?: string,
@@ -16,56 +22,50 @@ export type State = {
 
 
 export type Action =
-  | { +type: 'SIGN_IN_REQUEST'
-    }
-  | { +type: 'SIGN_IN_START'
-    }
-  | { +type: 'SIGN_IN_SUCCESS',
+  | {| +type: typeof SIGN_IN_REQUEST,
+      payload: User
+    |}
+  | {| +type: typeof SIGN_IN_START |}
+  | {| +type: typeof SIGN_IN_SUCCESS,
       payload: {
         user: User
       }
-    }
-  | { +type: 'SIGN_IN_FAIL',
+    |}
+  | {| +type: typeof SIGN_IN_FAIL,
       payload: {
         error: string
       }
-    }
-  | { +type: 'SIGN_UP_REQUEST'
-    }
-  | { +type: 'SIGN_UP_START'
-    }
-  | { +type: 'SIGN_UP_SUCCESS',
+    |}
+  | {| +type: typeof SIGN_UP_REQUEST,
+      payload: User|}
+  | {| +type: typeof SIGN_UP_START |}
+  | {| +type: typeof SIGN_UP_SUCCESS,
       payload: {
         user: User
       }
-    }
-  | { +type: 'SIGN_UP_FAIL',
+    |}
+  | {| +type: typeof SIGN_UP_FAIL,
       payload: {
         error: string
       }
-    }
-  | { +type: 'SIGN_OUT_REQUEST'
-    }
-  | { +type: 'SIGN_OUT_START'
-    }
-  | { +type: 'SIGN_OUT_SUCCESS'
-    }
-  | { +type: 'SIGN_OUT_FAIL',
+    |}
+  | {| +type: typeof SIGN_OUT_REQUEST |}
+  | {| +type: typeof SIGN_OUT_START |}
+  | {| +type: typeof SIGN_OUT_SUCCESS |}
+  | {| +type: typeof SIGN_OUT_FAIL,
       payload: {
         error: string
       }
-    }
-  | { +type: 'TOGGLE_FORM_STATE_REQUEST'
-    }
-  | { +type: 'TOGGLE_FORM_STATE_START'
-    }
-  | { +type: 'TOGGLE_FORM_STATE_SUCCESS',
+    |}
+  | {| +type: typeof TOGGLE_FORM_STATE_REQUEST |}
+  | {| +type: typeof TOGGLE_FORM_STATE_START |}
+  | {| +type: typeof TOGGLE_FORM_STATE_SUCCESS,
       payload: {
         formState: 'SignIn' | 'SignUp'
       }
-    }
-  | { +type: 'TOGGLE_FORM_STATE_FAIL',
+    |}
+  | {| +type: typeof TOGGLE_FORM_STATE_FAIL,
       payload: {
         error: string
       }
-    };
+    |};

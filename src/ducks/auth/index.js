@@ -11,6 +11,8 @@ import type {State, Action, User} from './types';
  * Constants
  * */
 
+export const moduleName: string = 'auth';
+
 export const SIGN_IN_REQUEST: 'SIGN_IN_REQUEST' = 'SIGN_IN_REQUEST';
 export const SIGN_IN_START: 'SIGN_IN_START' = 'SIGN_IN_START';
 export const SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS' = 'SIGN_IN_SUCCESS';
@@ -99,7 +101,7 @@ export default function authReducer(state: State = initialState, action: Action)
  * Selectors
  * */
 
-export const stateSelector = (state: State): State => state;
+export const stateSelector = (state: Object): State => state[moduleName];
 export const userSelector = createSelector(stateSelector, (state: State): null | User => state.user);
 export const progressSelector = createSelector(stateSelector, (state: State): boolean => state.progress);
 export const formStateSelector = createSelector(stateSelector, (state: State): 'SignIn' | 'SignUp' => state.formState);
@@ -123,10 +125,9 @@ export function signUp(email: string, password: string): Action {
   };
 }
 
-export function signOut(email: string, password: string): Action {
+export function signOut(): Action {
   return {
-    type: SIGN_OUT_REQUEST,
-    payload: {email, password},
+    type: SIGN_OUT_REQUEST
   };
 }
 
@@ -225,6 +226,9 @@ function* signUpSaga() {
           user,
         },
       } = yield call(axios, signUpRef);
+      
+      console.log(user);
+      
 
       yield put({
         type: SIGN_UP_SUCCESS,
@@ -256,7 +260,6 @@ function* signOutSaga() {
     yield put({type: SIGN_OUT_START});
 
     try {
-
 
       yield put({type: SIGN_OUT_SUCCESS});
 
@@ -312,7 +315,7 @@ function* toggleFormStateSaga() {
 }
 
 
-export function* saga(): any {
+export function* saga(): mixed {
   yield all([
     signInSaga(),
     signUpSaga(),

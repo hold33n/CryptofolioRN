@@ -1,6 +1,5 @@
-// import './src/fbConfig'
-import App from './src/App'
+import App from './src/App';
 
-const app = new App()
+const app = new App();
 
-export default app
+export default app;
