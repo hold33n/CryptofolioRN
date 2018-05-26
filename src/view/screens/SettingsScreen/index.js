@@ -1,12 +1,15 @@
-import React, {Component} from 'react'
-import { StatusBar, TouchableOpacity, StyleSheet, Text, View} from 'react-native'
-import { userSelector, signOut } from 'ducks/auth/index'
-import { List, ListItem } from 'react-native-elements'
-import { connect } from 'react-redux'
-import { GREY_5, GREY_80, GREY_100 } from 'colors'
+// @flow
 
-class SettingsScreen extends Component {
-  static get options() {
+import React, {Component} from 'react';
+import {StatusBar, TouchableOpacity, StyleSheet, Text, View} from 'react-native';
+import {signOut} from 'ducks/auth/index';
+import store from '../../../redux/store'
+import {List, ListItem} from 'react-native-elements';
+import {GREY_5, GREY_80, GREY_100} from 'colors';
+
+
+class SettingsScreen extends Component<{}, {}> {
+  static get options(): Object {
     return {
       topBar: {
         title: 'Settings',
@@ -28,8 +31,8 @@ class SettingsScreen extends Component {
       },
       bottomTab: {
         title: 'Settings',
-      }
-    }
+      },
+    };
   }
 
   render() {
@@ -47,9 +50,9 @@ class SettingsScreen extends Component {
             lineHeight: 28,
             marginRight: 4,
             color: GREY_5,
-          }
+          },
         },
-        onClickEvent: null
+        onClickEvent: null,
       },
       {
         title: 'Sign out',
@@ -63,26 +66,23 @@ class SettingsScreen extends Component {
             lineHeight: 24,
             marginRight: 4,
             color: GREY_5,
-          }
+          },
         },
-        onClickEvent: this.props.signOut
+        onClickEvent: () => store.dispatch(signOut()),
       },
-    ]
+    ];
 
-    const { user } = this.props
-
-    const email = user ? user.email : null
 
     return (
       <View>
         <StatusBar
           barStyle="light-content"
         />
-        <Text style={styles.email}>Your email: {email}</Text>
+        <Text style={styles.email}>Your email: asd</Text>
         <List
-          containerStyle={styles.container} >
+          containerStyle={styles.container}>
           {
-            list.map(({ title, icon, onClickEvent}, i) => (
+            list.map(({title, icon, onClickEvent}, i) => (
               <TouchableOpacity
                 key={i}
                 onPress={onClickEvent}
@@ -99,7 +99,7 @@ class SettingsScreen extends Component {
           }
         </List>
       </View>
-    )
+    );
   }
 }
 
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: GREY_5,
     fontSize: 16,
-    fontWeight: '500'
+    fontWeight: '500',
   },
   listItem: {
     borderTopWidth: 0,
@@ -129,6 +129,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect((state) => ({
-  user: userSelector(state)
-}), { signOut })(SettingsScreen)
+export default SettingsScreen;

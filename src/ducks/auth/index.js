@@ -1,11 +1,14 @@
 // @flow
 
-import {all, take, put, call, select} from 'redux-saga/effects';
+import {takeEvery, put, call, select} from 'redux-saga/effects';
 import {baseURL} from 'config';
-import {NAVIGATE} from '../navigator';
+import {NAVIGATE} from '../navigator/index';
 import axios from 'axios';
 import {createSelector} from 'reselect';
-import type {State, Action, User} from './types';
+import type {State} from './types';
+import {createAction, handleActions, combineActions} from 'redux-actions';
+import {AsyncStorage} from 'react-native';
+
 
 /**
  * Constants
@@ -40,286 +43,306 @@ export const TOGGLE_FORM_STATE_FAIL: 'TOGGLE_FORM_STATE_FAIL' = 'TOGGLE_FORM_STA
 
 export const initialState = {
   formState: 'SignIn',
-  user: null,
   progress: false,
   error: null,
 };
 
 
-export default function authReducer(state: State = initialState, action: Action) {
-  switch (action.type) {
-    case (SIGN_IN_START):
-    case (SIGN_UP_START):
-    case (SIGN_OUT_START):
-      return {
-        ...state,
-        progress: true,
-        error: null,
-      };
+// export default function authReducer(state: State = initialState, action: Action) {
+//   switch (action.type) {
+//     case (SIGN_IN_START):
+//     case (SIGN_UP_START):
+//     case (SIGN_OUT_START):
+//       return {
+//         ...state,
+//         progress: true,
+//         error: null,
+//       };
+//
+//     case (SIGN_IN_SUCCESS):
+//     case (SIGN_UP_SUCCESS):
+//       return {
+//         ...state,
+//         progress: false,
+//         error: null,
+//         user: action.payload.user,
+//       };
+//
+//     case (SIGN_OUT_SUCCESS):
+//       return {
+//         ...state,
+//         progress: false,
+//         error: null,
+//         user: null,
+//       };
+//
+//     case (TOGGLE_FORM_STATE_SUCCESS):
+//       return {
+//         ...state,
+//         progress: false,
+//         error: null,
+//         formState: action.payload.formState,
+//       };
+//
+//     case (SIGN_IN_FAIL):
+//     case (SIGN_UP_FAIL):
+//     case (SIGN_OUT_FAIL):
+//     case (TOGGLE_FORM_STATE_FAIL):
+//       return {
+//         ...state,
+//         progress: false,
+//         error: action.payload.error
+//       };
+//
+//     default:
+//       return state;
+//   }
+// }
 
-    case (SIGN_IN_SUCCESS):
-    case (SIGN_UP_SUCCESS):
-      return {
-        ...state,
-        progress: false,
-        error: null,
-        user: action.payload.user,
-      };
+const authReducer = handleActions(
+  {
+    [combineActions(SIGN_IN_START, SIGN_UP_START, SIGN_OUT_START)]: (state: State) => ({
+      ...state,
+      progress: true,
+      error: null,
+    }),
+    [combineActions(SIGN_IN_SUCCESS, SIGN_UP_SUCCESS)]: () => initialState,
+    [SIGN_OUT_SUCCESS]: (state: State) => ({
+      ...state,
+      progress: false,
+      error: null,
+    }),
+    [TOGGLE_FORM_STATE_SUCCESS]: (state: State, action) => ({
+      formState: action.payload.formState,
+      progress: false,
+      error: null,
+    }),
+    [combineActions(SIGN_IN_FAIL, SIGN_UP_FAIL, SIGN_OUT_FAIL, TOGGLE_FORM_STATE_FAIL)]: (state: State, action) => ({
+      ...state,
+      progress: false,
+      error: action.payload.error,
+    })
+  },
+  initialState
+);
 
-    case (SIGN_OUT_SUCCESS):
-      return {
-        ...state,
-        progress: false,
-        error: null,
-        user: null,
-      };
+export default authReducer;
 
-    case (TOGGLE_FORM_STATE_SUCCESS):
-      return {
-        ...state,
-        progress: false,
-        error: null,
-        formState: action.payload.formState,
-      };
 
-    case (SIGN_IN_FAIL):
-    case (SIGN_UP_FAIL):
-    case (SIGN_OUT_FAIL):
-    case (TOGGLE_FORM_STATE_FAIL):
-      return {
-        ...state,
-        progress: false,
-        error: action.payload.error
-      };
-
-    default:
-      return state;
-  }
-}
 
 /**
  * Selectors
  * */
 
 export const stateSelector = (state: Object): State => state[moduleName];
-export const userSelector = createSelector(stateSelector, (state: State): null | User => state.user);
-export const progressSelector = createSelector(stateSelector, (state: State): boolean => state.progress);
-export const formStateSelector = createSelector(stateSelector, (state: State): 'SignIn' | 'SignUp' => state.formState);
-export const errorSelector = createSelector(stateSelector, (state: State): null | string => state.error);
+
 
 /**
  * Action Creators
  * */
 
-export function signIn(email: string, password: string): Action {
-  return {
-    type: SIGN_IN_REQUEST,
-    payload: {email, password},
-  };
-}
+// export function signIn(email: string, password: string): Action {
+//   return {
+//     type: SIGN_IN_REQUEST,
+//     payload: {email, password},
+//   };
+// }
+//
+// export function signUp(email: string, password: string): Action {
+//   return {
+//     type: SIGN_UP_REQUEST,
+//     payload: {email, password},
+//   };
+// }
+//
+// export function signOut(): Action {
+//   return {
+//     type: SIGN_OUT_REQUEST
+//   };
+// }
+//
+// export function toggleFormState() {
+//   return {
+//     type: TOGGLE_FORM_STATE_REQUEST,
+//   };
+// }
 
-export function signUp(email: string, password: string): Action {
-  return {
-    type: SIGN_UP_REQUEST,
-    payload: {email, password},
-  };
-}
-
-export function signOut(): Action {
-  return {
-    type: SIGN_OUT_REQUEST
-  };
-}
-
-export function toggleFormState() {
-  return {
-    type: TOGGLE_FORM_STATE_REQUEST,
-  };
-}
+export const signIn = createAction(SIGN_IN_REQUEST);
+export const signUp = createAction(SIGN_UP_REQUEST);
+export const signOut = createAction(SIGN_OUT_REQUEST);
+export const toggleFormState = createAction(TOGGLE_FORM_STATE_REQUEST);
 
 
 /**
  * Sagas
  * */
 
-function* signInSaga() {
-  while (true) {
-    const action = yield take(SIGN_IN_REQUEST);
+function* signInSaga({ payload: {email, password} }) {
 
-    const {email, password} = action.payload;
+  const state = yield select(stateSelector);
 
-    const state = yield select(stateSelector);
+  if (state.progress) return true;
 
-    if (state.progress) continue;
+  yield put({type: SIGN_IN_START});
 
-    yield put({type: SIGN_IN_START});
+  try {
 
-    try {
+    const signInRef = {
+      method: 'post',
+      url: '/sign-in',
+      baseURL,
+      data: {
+        email,
+        password,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-      const signInRef = {
-        method: 'post',
-        url: '/sign-in',
-        baseURL,
-        data: {
-          email,
-          password,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
+    const {
+      data: {
+        user,
+      },
+    } = yield call(axios, signInRef);
 
-      const {
-        data: {
-          user,
-        },
-      } = yield call(axios, signInRef);
+    yield put({
+      type: SIGN_IN_SUCCESS
+    });
 
-      yield put({
-        type: SIGN_IN_SUCCESS,
-        payload: {user},
-      });
+    yield AsyncStorage.setItem('userId', user.id);
 
-      yield put({
-        type: NAVIGATE,
-        payload: {path: 'appRoot'},
-      });
+    yield put({
+      type: NAVIGATE,
+      payload: {path: 'appRoot'},
+    });
 
-    } catch (error) {
-      yield put({
-        type: SIGN_IN_FAIL,
-        payload: {error},
-      });
-    }
+  } catch (res) {
+    yield put({
+      type: SIGN_IN_FAIL,
+      payload: {
+        error: res.response.data.error.message
+      },
+    });
   }
+
 }
 
-function* signUpSaga() {
-  while (true) {
-    const action = yield take(SIGN_UP_REQUEST);
+function* signUpSaga({ payload: {email, password} }) {
 
-    const {email, password} = action.payload;
+  const state = yield select(stateSelector);
 
-    const state = yield select(stateSelector);
+  if (state.progress) return true;
 
-    if (state.progress) continue;
+  yield put({type: SIGN_UP_START});
 
-    yield put({type: SIGN_UP_START});
+  try {
 
-    try {
+    const signUpRef = {
+      method: 'post',
+      url: '/sign-up',
+      baseURL,
+      data: {
+        email,
+        password,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-      const signUpRef = {
-        method: 'post',
-        url: '/sign-up',
-        baseURL,
-        data: {
-          email,
-          password,
-        },
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      };
+    const {
+      data: {
+        user,
+      },
+    } = yield call(axios, signUpRef);
 
-      const {
-        data: {
-          user,
-        },
-      } = yield call(axios, signUpRef);
-      
-      console.log(user);
-      
+    console.log(user);
 
-      yield put({
-        type: SIGN_UP_SUCCESS,
-        payload: {user},
-      });
+    yield put({
+      type: SIGN_UP_SUCCESS
+    });
 
-      yield put({
-        type: NAVIGATE,
-        payload: {path: 'appRoot'},
-      });
+    yield put({
+      type: NAVIGATE,
+      payload: {path: 'appRoot'},
+    });
 
-    } catch (error) {
-      yield put({
-        type: SIGN_IN_FAIL,
-        payload: {error: error.message},
-      });
-    }
+    yield AsyncStorage.setItem('userId', user.id);
+
+  } catch (res) {
+    yield put({
+      type: SIGN_UP_FAIL,
+      payload: {error: res.response.data.error.message},
+    });
   }
+
 }
 
 function* signOutSaga() {
-  while (true) {
-    yield take(SIGN_OUT_REQUEST);
 
-    const state = yield select(stateSelector);
+  const state = yield select(stateSelector);
 
-    if (state.progress || state.error) continue;
+  if (state.progress || state.error) return true;
 
-    yield put({type: SIGN_OUT_START});
+  yield put({type: SIGN_OUT_START});
 
-    try {
+  try {
+    yield AsyncStorage.removeItem('userId');
 
-      yield put({type: SIGN_OUT_SUCCESS});
+    yield put({type: SIGN_OUT_SUCCESS});
 
-      yield put({
-        type: NAVIGATE,
-        payload: {path: 'auth'},
-      });
+    yield put({
+      type: NAVIGATE,
+      payload: {path: 'auth'},
+    });
 
-    } catch (error) {
-      yield put({
-        type: SIGN_OUT_FAIL,
-        payload: {error},
-      });
-    }
+  } catch (error) {
+    yield put({
+      type: SIGN_OUT_FAIL,
+      payload: {error},
+    });
   }
 }
 
 function* toggleFormStateSaga() {
-  while (true) {
-    yield take(TOGGLE_FORM_STATE_REQUEST);
 
-    const state = yield select(stateSelector);
+  const state = yield select(stateSelector);
 
-    if (state.progress) continue;
+  if (state.progress) return true;
 
-    yield put({type: TOGGLE_FORM_STATE_START});
+  yield put({type: TOGGLE_FORM_STATE_START});
 
-    try {
+  try {
 
-      if (state.formState === 'SignUp') {
-        yield put({
-          type: TOGGLE_FORM_STATE_SUCCESS,
-          payload: {
-            formState: 'SignIn',
-          },
-        });
-      } else if (state.formState === 'SignIn') {
-        yield put({
-          type: TOGGLE_FORM_STATE_SUCCESS,
-          payload: {
-            formState: 'SignUp',
-          },
-        });
-      }
-
-    } catch (error) {
+    if (state.formState === 'SignUp') {
       yield put({
-        type: TOGGLE_FORM_STATE_FAIL,
-        payload: {error},
+        type: TOGGLE_FORM_STATE_SUCCESS,
+        payload: {
+          formState: 'SignIn',
+        },
+      });
+    } else if (state.formState === 'SignIn') {
+      yield put({
+        type: TOGGLE_FORM_STATE_SUCCESS,
+        payload: {
+          formState: 'SignUp',
+        },
       });
     }
+
+  } catch (error) {
+    yield put({
+      type: TOGGLE_FORM_STATE_FAIL,
+      payload: { error },
+    });
   }
 }
 
 
-export function* saga(): mixed {
-  yield all([
-    signInSaga(),
-    signUpSaga(),
-    signOutSaga(),
-    toggleFormStateSaga()
-  ]);
+export function* watchAuth(): mixed {
+  yield takeEvery(SIGN_IN_REQUEST, signInSaga);
+  yield takeEvery(SIGN_UP_REQUEST, signUpSaga);
+  yield takeEvery(SIGN_OUT_REQUEST, signOutSaga);
+  yield takeEvery(TOGGLE_FORM_STATE_REQUEST, toggleFormStateSaga);
 }

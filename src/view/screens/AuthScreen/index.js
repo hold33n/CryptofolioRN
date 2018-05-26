@@ -1,45 +1,40 @@
 // @flow
-import React, {Component} from 'react'
-import { StatusBar, StyleSheet, View, Text, TouchableOpacity } from 'react-native'
-import InputField from 'components/InputField'
-import CodePush from 'components/CodePush'
-import { connect } from 'react-redux'
-import { signIn, signUp, toggleFormState, progressSelector, errorSelector, formStateSelector } from 'ducks/auth/index'
-import { GREY_5, GREY_80, RED } from 'colors'
 
-type State = {
-  email: string;
-  password: string;
-}
-
-type Props = {
-  formState: 'SignIn'|'SignUp';
-  progress: boolean;
-  error: string;
-  signUp(email: string, password: string): void;
-  signIn(email: string, password: string): void;
-  toggleFormState: void;
-}
+import React, {Component} from 'react';
+import {StatusBar, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import InputField from 'components/InputField';
+import CodePush from 'components/CodePush';
+import store from '../../../redux/store';
+import {connect} from 'react-redux';
+import {signIn, signUp, toggleFormState} from 'ducks/auth';
+import {GREY_5, GREY_80, RED} from 'colors';
+import type {Props, State} from './types'
 
 
 class AuthScreen extends Component<Props, State> {
   state = {
     email: '',
-    password: ''
-  }
+    password: '',
+  };
 
-  handleEmailChange = value => this.setState({email: value})
-  handlePasswordChange = value => this.setState({password: value})
-  handleSubmit = () => (this.props.formState === 'SignUp') ? this.props.signUp(this.state.email, this.state.password) : this.props.signIn(this.state.email, this.state.password)
+  handleEmailChange = value => this.setState({email: value});
+
+  handlePasswordChange = value => this.setState({password: value});
+
+  handleSubmit = () => (this.props.formState === 'SignUp') ?
+    store.dispatch(signUp({email: this.state.email, password: this.state.password}))
+    :
+    store.dispatch(signIn({email: this.state.email, password: this.state.password}));
+
 
   render() {
     return (
-      <View style={styles.container} >
+      <View style={styles.container}>
         <StatusBar
           barStyle="light-content"
         />
 
-        <CodePush />
+        <CodePush/>
 
         <Text style={styles.title}>{(this.props.formState === 'SignUp') ? 'Create Account' : 'Log in'}</Text>
 
@@ -68,10 +63,11 @@ class AuthScreen extends Component<Props, State> {
         </TouchableOpacity>
 
         <View style={styles.toggleFormControls}>
-          <Text style={styles.paragraph}>{(this.props.formState === 'SignUp') ? 'Already have an account?' : 'Haven\'t got an account?'}</Text>
+          <Text
+            style={styles.paragraph}>{(this.props.formState === 'SignUp') ? 'Already have an account?' : 'Haven\'t got an account?'}</Text>
           <TouchableOpacity
             style={styles.link}
-            onPress={this.props.toggleFormState}
+            onPress={() => store.dispatch(toggleFormState())}
           >
             <Text style={styles.linkText}>{(this.props.formState === 'SignUp') ? 'Sign in' : 'Sign up'}</Text>
           </TouchableOpacity>
@@ -96,7 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#fff',
     marginBottom: 20,
-    fontWeight: '600'
+    fontWeight: '600',
   },
   error: {
     color: RED,
@@ -139,20 +135,23 @@ const styles = StyleSheet.create({
     paddingLeft: 38,
     paddingRight: 38,
     borderRadius: 25,
-    marginTop: 20
+    marginTop: 20,
   },
   submitButtonText: {
     color: '#1588e9',
     textAlign: 'center',
     fontSize: 12,
     lineHeight: 12,
-    fontWeight: '700'
-  }
+    fontWeight: '700',
+  },
 });
 
 
-export default connect((state: State) => ({
-  progress: progressSelector(state),
-  error: errorSelector(state),
-  formState: formStateSelector(state),
-}), { signIn, signUp, toggleFormState })(AuthScreen)
+export default connect(
+  ({
+     auth: {
+      progress, error, formState
+    }
+  }) => ({
+  progress, error, formState,
+}))(AuthScreen);

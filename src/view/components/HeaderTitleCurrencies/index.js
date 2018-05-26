@@ -1,6 +1,6 @@
 import React from 'react'
 import {StyleSheet, Text} from 'react-native'
-import { headerTitleVisibilitySelector } from 'ducks/currencies'
+import { headerTitleVisibilitySelector } from 'ducks/currencies/index'
 import {connect} from 'react-redux'
 
 const HeaderTitleCurrencies = ({ children, headerTitleVisibility }) => <Text style={[styles.headerTitleCurrencies, headerTitleVisibility && styles.headerTitleCurrenciesVisible]}>{children}</Text>

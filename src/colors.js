@@ -1,11 +1,13 @@
-export const GREY_100 = '#10101A';
-export const GREY_80 = '#191A2A';
-export const GREY_60 = '#2E2F47';
-export const GREY_20 = '#51526B';
-export const GREY_10 = '#66688F';
-export const GREY_5 = '#9C9EB9';
+// @flow
 
-export const GREY_MARKER_BG = '#242537';
+export const GREY_100: string = '#10101A';
+export const GREY_80: string = '#191A2A';
+export const GREY_60: string = '#2E2F47';
+export const GREY_20: string = '#51526B';
+export const GREY_10: string = '#66688F';
+export const GREY_5: string = '#9C9EB9';
 
-export const RED = '#FF4465';
-export const GREEN = '#3FE77B';
+export const GREY_MARKER_BG: string = '#242537';
+
+export const RED: string = '#FF4465';
+export const GREEN: string = '#3FE77B';

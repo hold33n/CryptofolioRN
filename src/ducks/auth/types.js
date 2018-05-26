@@ -6,24 +6,28 @@ import { SIGN_IN_REQUEST, SIGN_IN_START, SIGN_IN_SUCCESS, SIGN_IN_FAIL,
   TOGGLE_FORM_STATE_REQUEST, TOGGLE_FORM_STATE_START, TOGGLE_FORM_STATE_SUCCESS, TOGGLE_FORM_STATE_FAIL } from './index';
 
 
+export type UserReq =  {|
+  email: string,
+  password: string,
+|};
+
 export type User = {|
   email: string,
-  id?: string,
-  password?: string;
+  id: string
 |};
 
 
-export type State = {
+export type State = {|
   +user: null | User,
   +progress: boolean,
   +formState: 'SignIn' | 'SignUp',
   +error: null | string,
-};
+|};
 
 
 export type Action =
   | {| +type: typeof SIGN_IN_REQUEST,
-      payload: User
+      payload: UserReq
     |}
   | {| +type: typeof SIGN_IN_START |}
   | {| +type: typeof SIGN_IN_SUCCESS,
@@ -37,7 +41,8 @@ export type Action =
       }
     |}
   | {| +type: typeof SIGN_UP_REQUEST,
-      payload: User|}
+      payload: UserReq
+    |}
   | {| +type: typeof SIGN_UP_START |}
   | {| +type: typeof SIGN_UP_SUCCESS,
       payload: {

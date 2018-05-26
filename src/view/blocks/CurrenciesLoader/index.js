@@ -1,18 +1,20 @@
-import React, {Component} from 'react'
-import { StyleSheet, View } from 'react-native'
-import { GREY_MARKER_BG, GREY_60 } from 'colors'
+// @flow
 
-class CurrenciesLoader extends Component {
+import React, {Component} from 'react';
+import {StyleSheet, View} from 'react-native';
+import {GREY_MARKER_BG, GREY_60} from 'colors';
+
+class CurrenciesLoader extends Component<{}, {}> {
   render() {
     return (
       <View style={styles.currencyContainer}>
         <View style={styles.grid}>
-          <View style={styles.col}>
-            <View style={styles.currencySymbol} />
+          <View>
+            <View style={styles.currencySymbol}/>
           </View>
-          <View style={[styles.col, styles.col_right]}>
-            <View style={styles.currencyPrice} />
-            <View style={styles.currencyChange} />
+          <View style={styles.col_right}>
+            <View style={styles.currencyPrice}/>
+            <View style={styles.currencyChange}/>
           </View>
         </View>
       </View>
@@ -30,12 +32,12 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   col_right: {
     flexDirection: 'column',
     alignItems: 'flex-end',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   currencySymbol: {
     backgroundColor: GREY_60,
@@ -56,12 +58,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: GREY_60,
   },
-})
+});
 
-CurrenciesLoader.propTypes = {
-  // item: PropTypes.shape({
-  //   name: PropTypes.string.isRequired
-  // }).isRequired
-}
 
-export default CurrenciesLoader
+export default CurrenciesLoader;

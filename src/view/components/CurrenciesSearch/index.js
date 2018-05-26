@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react'
 import { StyleSheet} from 'react-native'
 import { SearchBar } from 'react-native-elements'
 import { connect } from 'react-redux'
-import { addSearchPhrase, clearSearchPhrase, searchPhraseSelector } from 'ducks/currenciesSearch'
+import { addSearchPhrase, clearSearchPhrase, searchPhraseSelector } from 'ducks/currenciesSearch/index'
 import { GREY_60, GREY_80 } from 'colors'
 
 

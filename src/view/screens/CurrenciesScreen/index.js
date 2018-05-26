@@ -1,28 +1,35 @@
+// @flow
+
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, RefreshControl, TouchableOpacity, View, Text, VirtualizedList } from 'react-native'
-import CurrencyBlock from 'blocks/CurrencyBlock'
-import CodePush from 'components/CodePush'
-import CurrenciesLoader from 'blocks/CurrenciesLoader'
-import { fetchCurrencies, refreshCurrencies, currenciesSelector, progressLoadSelector, progressReloadSelector } from 'ducks/currencies'
-import { searchPhraseSelector, searchCurrenciesResultsSelector } from 'ducks/currenciesSearch'
-import { selectCurrency } from 'ducks/currency'
-import Search from 'components/CurrenciesSearch'
-import { connect } from 'react-redux'
-import { appName } from 'config'
-import { GREY_5, GREY_80 } from 'colors'
-import { iconsMap } from 'assets/AppIcons'
+import {StyleSheet, RefreshControl, TouchableOpacity, View, Text, VirtualizedList} from 'react-native';
+import CurrencyBlock from 'blocks/CurrencyBlock';
+import CodePush from 'components/CodePush';
+import CurrenciesLoader from 'blocks/CurrenciesLoader';
+import {
+  fetchCurrencies,
+  refreshCurrencies,
+} from 'ducks/currencies';
+import {searchPhraseSelector, searchCurrenciesResultsSelector} from 'ducks/currenciesSearch/index';
+import {selectCurrency} from 'ducks/currency';
+import {store} from '../../../redux/store'
+import Search from 'components/CurrenciesSearch';
+import {connect} from 'react-redux';
+import {appName} from 'config';
+import {GREY_5, GREY_80} from 'colors';
+import {iconsMap} from 'assets/AppIcons';
+import type {CurrenciesScreenProps, CurrencyRowItemProps} from './types'
 
 
-class CurrencyRowItem extends PureComponent {
+class CurrencyRowItem extends PureComponent<CurrencyRowItemProps, {}> {
   render() {
 
-    const { item, selectCurrency, navigator } = this.props
+    const {item, selectCurrency, navigator} = this.props;
 
     return (
       <TouchableOpacity
         onPress={() => {
-          selectCurrency(item)
+          selectCurrency(item);
           navigator.push({
             screen: `${appName}.Currency`,
             backButtonHidden: false,
@@ -44,10 +51,10 @@ class CurrencyRowItem extends PureComponent {
                   title: '',
                   icon: iconsMap['ios-arrow-round-back'],
                   buttonFontSize: 14,
-                }
-              ]
-            }
-          })
+                },
+              ],
+            },
+          });
         }}
         style={styles.item}
       >
@@ -55,49 +62,41 @@ class CurrencyRowItem extends PureComponent {
           item={item}
         />
       </TouchableOpacity>
-    )
+    );
   }
 }
 
 
 
-@connect((state) => ({
-  currenciesList: currenciesSelector(state),
-  progressLoad: progressLoadSelector(state),
-  progressReload: progressReloadSelector(state),
-  searchPhrase: searchPhraseSelector(state),
-  searchCurrenciesResults: searchCurrenciesResultsSelector(state),
-}), { fetchCurrencies, refreshCurrencies, selectCurrency })
-class CurrenciesScreen extends PureComponent {
+class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
   componentDidMount() {
-    this.props.fetchCurrencies()
+    store.dispatch(fetchCurrencies());
   }
 
-  itemRenderer = ({ item }) => <CurrencyRowItem
+  itemRenderer = ({item}) => <CurrencyRowItem
     item={item}
     navigator={this.props.navigator}
-    selectCurrency={this.props.selectCurrency}
-  />
+    selectCurrency={() => store.dispatch(selectCurrency())}
+  />;
 
-  getItem = (data, index) => data[index].obj
+  getItem = (data, index) => data[index].obj;
 
-  getItemCount = data => data.length
-
+  getItemCount = data => data.length;
 
 
   render() {
 
-    const headerComponent = <Search />
+    const headerComponent = <Search/>;
 
-    const { searchPhrase, searchCurrenciesResults, currenciesList } = this.props
+    const { searchPhrase, searchCurrenciesResults, currenciesList } = this.props;
 
-    const currenciesListData = currenciesList.map(el => ({obj: el})).slice(0, 50)
+    const currenciesListData = currenciesList.map( el => ({obj: el}) ).slice(0, 50);
 
-    const EmptyView = <Text style={styles.emptyText}>No items to display</Text>
+    const EmptyView = <Text style={styles.emptyText}>No items to display</Text>;
 
     return this.props.currenciesList.length > 0 ? (
       <View>
-        <CodePush />
+        <CodePush/>
         <VirtualizedList
           data={searchPhrase ? searchCurrenciesResults : currenciesListData}
           style={styles.container}
@@ -105,18 +104,18 @@ class CurrenciesScreen extends PureComponent {
           getItem={this.getItem}
           getItemCount={this.getItemCount}
           ListHeaderComponent={headerComponent}
-          getItemLayout={(data, index) => ({ length: 73, offset: 73 * index, index })}
+          getItemLayout={(data, index) => ({length: 73, offset: 73 * index, index})}
           scrollEventThrottle={16}
           refreshControl={
             <RefreshControl
               refreshing={this.props.progressReload}
-              onRefresh={this.props.refreshCurrencies}
+              onRefresh={() => store.dispatch(refreshCurrencies())}
             />
           }
           windowSize={5}
           maxToRenderPerBatch={2}
         />
-        {(searchPhrase && searchCurrenciesResults.length === 0) ? EmptyView : false }
+        {(searchPhrase && searchCurrenciesResults.length === 0) ? EmptyView : false}
       </View>
     ) : (
       <View>
@@ -129,7 +128,7 @@ class CurrenciesScreen extends PureComponent {
         <CurrenciesLoader/>
         <CurrenciesLoader/>
       </View>
-    )
+    );
   }
 }
 
@@ -148,13 +147,16 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontFamily: 'Rubik-Medium',
     marginTop: 10,
-  }
+  },
 });
 
-CurrenciesScreen.propTypes = {
-  titleTextColor: PropTypes.string,
-  changeTitleTextColor: PropTypes.func
-}
 
-
-export default CurrenciesScreen
+export default connect(
+  (state) => ({
+    currenciesList: state.currencies.currenciesList,
+    progressLoad: state.currencies.progressLoad,
+    progressReload: state.currencies.progressReload,
+    searchPhrase: searchPhraseSelector(state),
+    searchCurrenciesResults: searchCurrenciesResultsSelector(state),
+  })
+)(CurrenciesScreen);

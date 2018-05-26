@@ -1,11 +1,11 @@
 import {all} from 'redux-saga/effects'
-import {saga as authSaga} from 'ducks/auth/index'
-import {saga as currenciesSaga} from 'ducks/currencies'
+import {watchAuth} from 'ducks/auth/index'
+import {saga as currenciesSaga} from 'ducks/currencies/index'
 import {saga as currencySaga} from 'ducks/currency'
 
 export default function* saga() {
   yield all([
-    authSaga(),
+    watchAuth(),
     currenciesSaga(),
     currencySaga(),
   ])

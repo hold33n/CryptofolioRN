@@ -1,39 +1,43 @@
-import React, {Component} from 'react'
-import { Navigation } from 'react-native-navigation'
-import store from './redux/store'
-import {Provider} from 'react-redux'
-import { NAVIGATE, moduleName as navigatorModule } from 'ducks/navigator'
-import { iconsMap, iconsLoaded } from 'assets/AppIcons'
-import { appName, registerScreens } from 'config'
-import { GREY_5, GREY_80, GREY_100 } from 'colors'
+// @flow
 
-registerScreens(store, Provider)
+import React, {Component} from 'react';
+import {Navigation} from 'react-native-navigation';
+import store from './redux/store';
+import {Provider} from 'react-redux';
+import {NAVIGATE, moduleName as navigatorModule} from 'ducks/navigator';
+import {iconsMap, iconsLoaded} from 'assets/AppIcons';
+import {appName, registerScreens} from 'config';
+import {GREY_5, GREY_80, GREY_100} from 'colors';
+import {AsyncStorage} from 'react-native';
+import type {path} from 'ducks/navigator/types'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
+
+registerScreens(store, Provider);
+
+class App extends Component<{}, {}> {
+  constructor(props: void) {
+    super(props);
 
     store.subscribe(this.onStoreUpdate.bind(this));
 
-    iconsLoaded.then(() => {
-      store.dispatch({
-        type: NAVIGATE,
-        payload: {
-          path: 'auth'
-        }
-      });
+    iconsLoaded.then(async () => {
+      try {
+        const userId = await AsyncStorage.getItem('userId');
+
+        store.dispatch({
+          type: NAVIGATE,
+          payload: {
+            path: userId ? 'appRoot' : 'auth',
+          },
+        });
+      } catch (error) {
+        console.log(error)
+      }
     });
   }
 
-  // componentDidMount() {
-  //   CodePush.sync({
-  //     updateDialog: true,
-  //     installMode: CodePush.InstallMode.IMMEDIATE
-  //   });
-  // }
-
   onStoreUpdate() {
-    let path = store.getState()[navigatorModule].get('path')
+    let path: path = store.getState()[navigatorModule]['path'];
 
     // handle a root change
     if (this.currentPath !== path) {
@@ -42,7 +46,7 @@ class App extends Component {
     }
   }
 
-  startApp(root) {
+  startApp(root: path) {
 
     const navigatorStyle = {
       navBarTranslucent: false,
@@ -55,7 +59,7 @@ class App extends Component {
       statusBarTextColorScheme: 'light',
       screenBackgroundColor: GREY_80,
       drawUnderTabBar: true,
-    }
+    };
 
     const appNavigatorConfig = {
       tabs: [
@@ -68,9 +72,9 @@ class App extends Component {
             top: 6, // optional, default is 0.
             left: 0, // optional, default is 0.
             bottom: -4, // optional, default is 0.
-            right: 0 // optional, default is 0.
+            right: 0, // optional, default is 0.
           },
-          navigatorStyle
+          navigatorStyle,
         },
         {
           screen: `${appName}.Portfolio`,
@@ -78,10 +82,10 @@ class App extends Component {
           selectedIcon: iconsMap['ios-analytics'],
           title: 'PORTFOLIO',
           iconInsets: { // add this to change icon position (optional, iOS only).
-          top: 6, // optional, default is 0.
+            top: 6, // optional, default is 0.
             left: 0, // optional, default is 0.
             bottom: -4, // optional, default is 0.
-            right: 0 // optional, default is 0.
+            right: 0, // optional, default is 0.
           },
           navigatorStyle,
           navigatorButtons: {
@@ -91,9 +95,9 @@ class App extends Component {
                 title: '',
                 icon: iconsMap['ios-add'],
                 buttonFontSize: 14,
-              }
-            ]
-          }
+              },
+            ],
+          },
         },
         {
           screen: `${appName}.Settings`,
@@ -108,9 +112,9 @@ class App extends Component {
             top: 6, // optional, default is 0.
             left: 0, // optional, default is 0.
             bottom: -4, // optional, default is 0.
-            right: 0 // optional, default is 0.
+            right: 0, // optional, default is 0.
           },
-        }
+        },
       ],
       tabsStyle: {
         tabBarButtonColor: GREY_5,
@@ -122,8 +126,8 @@ class App extends Component {
       },
       appStyle: {
         orientation: 'portrait',
-      }
-    }
+      },
+    };
 
 
     switch (root) {
@@ -135,7 +139,7 @@ class App extends Component {
             navigatorStyle: {
               navBarHidden: true,
               screenBackgroundColor: '#364061',
-            }
+            },
           },
         });
         return;
@@ -149,4 +153,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;

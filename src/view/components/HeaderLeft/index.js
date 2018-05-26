@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { StyleSheet, Text } from 'react-native'
-import { navigateBack } from 'ducks/navigator'
+import { navigateBack } from 'ducks/navigator/index'
 import {connect} from 'react-redux'
 
 class HeaderLeft extends Component {
