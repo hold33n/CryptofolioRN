@@ -57,13 +57,6 @@ class CurrencyBlock extends PureComponent<Props, {}> {
 const styles = StyleSheet.create({
   currencyContainer: {
     marginBottom: 35,
-    // shadowColor: '#242A43',
-    // shadowOffset: {
-    //   width: 5,
-    //   height: 15,
-    // },
-    // shadowOpacity: .5,
-    // shadowRadius: 20
   },
   grid: {
     flexDirection: 'row',

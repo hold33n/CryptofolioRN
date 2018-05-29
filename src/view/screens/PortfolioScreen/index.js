@@ -1,10 +1,14 @@
-import React, {Component} from 'react'
-import { appName } from 'config'
-import { StyleSheet, View, Text } from 'react-native'
-import { GREY_80 } from 'colors'
-import { iconsMap } from 'assets/AppIcons'
+// @flow
 
-class PortfolioScreen extends Component {
+import React, {Component} from 'react';
+import {appName} from 'config';
+import {StyleSheet, View, Text} from 'react-native';
+import {GREY_80} from 'colors';
+import {iconsMap} from 'assets/AppIcons';
+import type {Props} from './types'
+
+
+class PortfolioScreen extends Component<Props, {}> {
 
   constructor(props) {
     super(props);
@@ -36,9 +40,9 @@ class PortfolioScreen extends Component {
                 title: '',
                 icon: iconsMap['ios-arrow-round-back'],
                 buttonFontSize: 14,
-              }
-            ]
-          }
+              },
+            ],
+          },
         });
       }
     }
@@ -53,10 +57,8 @@ class PortfolioScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-});
+const styles = StyleSheet.create({});
 
-PortfolioScreen.propTypes = {
-}
+PortfolioScreen.propTypes = {};
 
-export default PortfolioScreen
+export default PortfolioScreen;

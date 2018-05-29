@@ -47,58 +47,6 @@ export const initialState = {
   error: null,
 };
 
-
-// export default function authReducer(state: State = initialState, action: Action) {
-//   switch (action.type) {
-//     case (SIGN_IN_START):
-//     case (SIGN_UP_START):
-//     case (SIGN_OUT_START):
-//       return {
-//         ...state,
-//         progress: true,
-//         error: null,
-//       };
-//
-//     case (SIGN_IN_SUCCESS):
-//     case (SIGN_UP_SUCCESS):
-//       return {
-//         ...state,
-//         progress: false,
-//         error: null,
-//         user: action.payload.user,
-//       };
-//
-//     case (SIGN_OUT_SUCCESS):
-//       return {
-//         ...state,
-//         progress: false,
-//         error: null,
-//         user: null,
-//       };
-//
-//     case (TOGGLE_FORM_STATE_SUCCESS):
-//       return {
-//         ...state,
-//         progress: false,
-//         error: null,
-//         formState: action.payload.formState,
-//       };
-//
-//     case (SIGN_IN_FAIL):
-//     case (SIGN_UP_FAIL):
-//     case (SIGN_OUT_FAIL):
-//     case (TOGGLE_FORM_STATE_FAIL):
-//       return {
-//         ...state,
-//         progress: false,
-//         error: action.payload.error
-//       };
-//
-//     default:
-//       return state;
-//   }
-// }
-
 const authReducer = handleActions(
   {
     [combineActions(SIGN_IN_START, SIGN_UP_START, SIGN_OUT_START)]: (state: State) => ({
@@ -140,32 +88,6 @@ export const stateSelector = (state: Object): State => state[moduleName];
 /**
  * Action Creators
  * */
-
-// export function signIn(email: string, password: string): Action {
-//   return {
-//     type: SIGN_IN_REQUEST,
-//     payload: {email, password},
-//   };
-// }
-//
-// export function signUp(email: string, password: string): Action {
-//   return {
-//     type: SIGN_UP_REQUEST,
-//     payload: {email, password},
-//   };
-// }
-//
-// export function signOut(): Action {
-//   return {
-//     type: SIGN_OUT_REQUEST
-//   };
-// }
-//
-// export function toggleFormState() {
-//   return {
-//     type: TOGGLE_FORM_STATE_REQUEST,
-//   };
-// }
 
 export const signIn = createAction(SIGN_IN_REQUEST);
 export const signUp = createAction(SIGN_UP_REQUEST);
@@ -256,8 +178,6 @@ function* signUpSaga({ payload: {email, password} }) {
         user,
       },
     } = yield call(axios, signUpRef);
-
-    console.log(user);
 
     yield put({
       type: SIGN_UP_SUCCESS

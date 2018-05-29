@@ -1,7 +1,7 @@
 import {all} from 'redux-saga/effects'
 import {watchAuth} from 'ducks/auth/index'
-import {saga as currenciesSaga} from 'ducks/currencies/index'
-import {saga as currencySaga} from 'ducks/currency'
+import {currenciesSaga} from 'ducks/currencies/index'
+import {currencySaga} from 'ducks/currency/index'
 
 export default function* saga() {
   yield all([

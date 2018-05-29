@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import { StyleSheet, View, Text} from 'react-native'
+import React, {Component} from 'react';
+import {StyleSheet, View, Text} from 'react-native';
 
 class NewPortfolioCurrencyScreen extends Component {
 
@@ -27,10 +27,6 @@ class NewPortfolioCurrencyScreen extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-});
+const styles = StyleSheet.create({});
 
-NewPortfolioCurrencyScreen.propTypes = {
-}
-
-export default NewPortfolioCurrencyScreen
+export default NewPortfolioCurrencyScreen;

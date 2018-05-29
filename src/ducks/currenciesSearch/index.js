@@ -23,25 +23,6 @@ export const CLEAR_SEARCH_PHRASE: 'CLEAR_SEARCH_PHRASE' = 'CLEAR_SEARCH_PHRASE';
 export const initialState = {
   searchPhrase: '',
 };
-//
-// function searchReducer(state = new ReducerRecord(), action) {
-//   const {type, payload} = action;
-//
-//   switch (type) {
-//
-//     case (ADD_SEARCH_PHRASE):
-//       return state
-//         .set('searchPhrase', payload.text);
-//
-//     case (CLEAR_SEARCH_PHRASE):
-//       return state
-//         .set('searchPhrase', '');
-//
-//     default:
-//       return state;
-//   }
-// }
-
 
 const searchReducer = handleActions(
   {
@@ -58,6 +39,7 @@ export default searchReducer;
 /**
  * Selectors
  * */
+
 export const stateSelector = (state: Object) => state[moduleName];
 export const searchPhraseSelector = createSelector(stateSelector, state => state.searchPhrase);
 export const searchCurrenciesResultsSelector = createSelector(searchPhraseSelector, currenciesSelector, (searchPhrase, currencies) => fuzzysort.go(searchPhrase, currencies,
@@ -67,6 +49,7 @@ export const searchCurrenciesResultsSelector = createSelector(searchPhraseSelect
     keys: ['name', 'symbol'],
   }),
 );
+
 
 /**
  * Action Creators

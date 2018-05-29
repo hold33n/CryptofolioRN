@@ -1,18 +1,14 @@
 // @flow
 
 import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
 import {StyleSheet, RefreshControl, TouchableOpacity, View, Text, VirtualizedList} from 'react-native';
 import CurrencyBlock from 'blocks/CurrencyBlock';
 import CodePush from 'components/CodePush';
 import CurrenciesLoader from 'blocks/CurrenciesLoader';
-import {
-  fetchCurrencies,
-  refreshCurrencies,
-} from 'ducks/currencies';
+import {fetchCurrencies, refreshCurrencies} from 'ducks/currencies';
 import {searchPhraseSelector, searchCurrenciesResultsSelector} from 'ducks/currenciesSearch/index';
 import {selectCurrency} from 'ducks/currency';
-import {store} from '../../../redux/store'
+import store from '../../../redux/store'
 import Search from 'components/CurrenciesSearch';
 import {connect} from 'react-redux';
 import {appName} from 'config';
@@ -24,12 +20,13 @@ import type {CurrenciesScreenProps, CurrencyRowItemProps} from './types'
 class CurrencyRowItem extends PureComponent<CurrencyRowItemProps, {}> {
   render() {
 
-    const {item, selectCurrency, navigator} = this.props;
+    const {item, navigator} = this.props;
 
     return (
       <TouchableOpacity
         onPress={() => {
-          selectCurrency(item);
+          store.dispatch(selectCurrency(item));
+
           navigator.push({
             screen: `${appName}.Currency`,
             backButtonHidden: false,

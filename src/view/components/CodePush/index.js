@@ -1,7 +1,9 @@
+// @flow
+
 import React, {Component} from 'react'
 import codePush from 'react-native-code-push'
 
-@codePush
+
 class CodePush extends Component {
   componentDidMount() {
     codePush.sync({
@@ -13,4 +15,4 @@ class CodePush extends Component {
   render () { return false }
 }
 
-export default CodePush
+export default codePush(CodePush)

@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {GREY_MARKER_BG, GREY_60} from 'colors';
+import {GREY_60} from 'colors';
 
 class CurrenciesLoader extends Component<{}, {}> {
   render() {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   currencyContainer: {
     paddingLeft: 15,
     paddingRight: 15,
-    marginBottom: 35,
+    marginBottom: 36,
     opacity: .4,
   },
   grid: {

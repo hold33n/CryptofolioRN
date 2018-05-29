@@ -18,9 +18,8 @@ export type User = {|
 
 
 export type State = {|
-  +user: null | User,
-  +progress: boolean,
   +formState: 'SignIn' | 'SignUp',
+  +progress: boolean,
   +error: null | string,
 |};
 

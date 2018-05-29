@@ -1,6 +1,6 @@
 // @flows
 
-import {all, take, put, call, select} from 'redux-saga/effects';
+import {takeEvery, put, call, select} from 'redux-saga/effects';
 import axios from 'axios';
 import {createSelector} from 'reselect';
 import {createAction, handleActions, combineActions} from 'redux-actions';
@@ -28,68 +28,12 @@ export const REFRESH_CURRENCIES_FAIL: 'REFRESH_CURRENCIES_FAIL' = 'REFRESH_CURRE
  * Reducer
  * */
 
-// export const currenciesState = new OrderedMap({
-//   currenciesList: new OrderedMap({}),
-//   progressLoad: false,
-//   progressReload: false,
-//   error: null,
-// });
-//
-// const currencyRecord = new Record({
-//   id: '',
-//   name: '',
-//   key: '',
-//   symbol: '',
-//   rank: '',
-//   price_usd: null,
-//   percent_change_24h: null,
-//   market_cap_usd: null,
-//   available_supply: null,
-//   ['24h_volume_usd']: null,
-// });
-
 export const initialState = {
   currenciesList: [],
   progressLoad: false,
   progressReload: false,
   error: null,
 };
-
-
-// export default function currenciesReducer(state = currenciesState, action) {
-//   const {type, payload} = action;
-//
-//   switch (type) {
-//
-//     case (FETCH_CURRENCIES_START):
-//       return state
-//         .set('progressLoad', true);
-//
-//     case (REFRESH_CURRENCIES_START):
-//       return state
-//         .set('progressReload', true);
-//
-//     case (FETCH_CURRENCIES_SUCCESS):
-//       return state
-//         .set('progressLoad', false)
-//         .set('currenciesList', state.get('currenciesList').mergeDeep(arrayToOrderedMap(payload.currenciesList, currencyRecord)));
-//
-//     case (REFRESH_CURRENCIES_SUCCESS):
-//       return state
-//         .set('progressReload', false)
-//         .set('currenciesList', arrayToOrderedMap(payload.currenciesList, currencyRecord));
-//
-//     case (FETCH_CURRENCIES_FAIL):
-//     case (REFRESH_CURRENCIES_FAIL):
-//       return state
-//         .set('progressLoad', false)
-//         .set('progressReload', false)
-//         .set('error', payload.error);
-//
-//     default:
-//       return state;
-//   }
-// }
 
 const currenciesReducer = handleActions(
   {
@@ -101,9 +45,14 @@ const currenciesReducer = handleActions(
       ...state,
       progressReload: true
     }),
-    [combineActions(FETCH_CURRENCIES_SUCCESS, REFRESH_CURRENCIES_SUCCESS)]: (state: State, action) => ({
+    [FETCH_CURRENCIES_SUCCESS]: (state: State, action) => ({
       ...state,
       progressLoad: false,
+      currenciesList: action.payload.currenciesList
+    }),
+    [REFRESH_CURRENCIES_SUCCESS]: (state: State, action) => ({
+      ...state,
+      progressReload: false,
       currenciesList: action.payload.currenciesList
     }),
     [combineActions(FETCH_CURRENCIES_FAIL, REFRESH_CURRENCIES_FAIL)]: (state: State, action) => ({
@@ -125,25 +74,11 @@ export default currenciesReducer;
  * */
 export const stateSelector = state => state[moduleName];
 export const currenciesSelector = createSelector(stateSelector, state => state.currenciesList);
-// export const progressLoadSelector = createSelector(stateSelector, state => state.get('progressLoad'));
-// export const progressReloadSelector = createSelector(stateSelector, state => state.get('progressReload'));
 
 
 /**
  * Action Creators
  * */
-
-// export function fetchCurrencies() {
-//   return {
-//     type: FETCH_CURRENCIES_REQUEST,
-//   };
-// }
-//
-// export function refreshCurrencies() {
-//   return {
-//     type: REFRESH_CURRENCIES_REQUEST,
-//   };
-// }
 
 export const fetchCurrencies = createAction(FETCH_CURRENCIES_REQUEST);
 export const refreshCurrencies = createAction(REFRESH_CURRENCIES_REQUEST);
@@ -154,84 +89,84 @@ export const refreshCurrencies = createAction(REFRESH_CURRENCIES_REQUEST);
  * */
 
 function* fetchCurrenciesLazySaga() {
-  while (true) {
-    yield take(FETCH_CURRENCIES_REQUEST);
+  try {
 
-    try {
+    const state = yield select(stateSelector);
 
-      const state = yield select(stateSelector);
+    if (state.progressLoad || state.error) return true;
 
-      if (state.progressLoad || state.error) continue;
+    yield put({type: FETCH_CURRENCIES_START});
 
-      yield put({type: FETCH_CURRENCIES_START});
+    const ref = {
+      method: 'post',
+      url: 'https://api.coinmarketcap.com/v1/ticker',
+      params: {
+        limit: 0,
+      },
+    };
 
-      const ref = {
-        method: 'post',
-        url: 'https://api.coinmarketcap.com/v1/ticker',
-        params: {
-          limit: 0,
-        },
-      };
+    const {data} = yield call(axios, ref);
 
-      const {data} = yield call(axios, ref);
+    yield put({
+      type: FETCH_CURRENCIES_SUCCESS,
+      payload: {currenciesList: data.map(el => (
+        {
+          key: el.id,
+          ...el
+        }
+      ))},
+    });
 
-      yield put({
-        type: FETCH_CURRENCIES_SUCCESS,
-        payload: {currenciesList: data.map(el => el.key = el.id)},
-      });
+  } catch (error) {
 
-    } catch (error) {
+    yield put({
+      type: FETCH_CURRENCIES_FAIL,
+      payload: {error},
+    });
 
-      yield put({
-        type: FETCH_CURRENCIES_FAIL,
-        payload: {error},
-      });
-
-    }
   }
 }
 
 function* refreshCurrenciesSaga() {
-  while (true) {
-    yield take(REFRESH_CURRENCIES_REQUEST);
+  try {
 
-    try {
+    const state = yield select(stateSelector);
 
-      const state = yield select(stateSelector);
+    if (state.progressLoad || state.error) return true;
 
-      if (state.progressLoad || state.error) continue;
+    yield put({type: REFRESH_CURRENCIES_START});
 
-      yield put({type: REFRESH_CURRENCIES_START});
+    const ref = {
+      method: 'post',
+      url: 'https://api.coinmarketcap.com/v1/ticker',
+      params: {
+        limit: 0,
+      },
+    };
 
-      const ref = {
-        method: 'post',
-        url: 'https://api.coinmarketcap.com/v1/ticker',
-        params: {
-          limit: 0,
-        },
-      };
+    const {data} = yield call(axios, ref);
 
-      const {data} = yield call(axios, ref);
+    yield put({
+      type: REFRESH_CURRENCIES_SUCCESS,
+      payload: {currenciesList: data.map(el => (
+          {
+            key: el.id,
+            ...el
+          }
+        ))},
+    });
 
-      yield put({
-        type: REFRESH_CURRENCIES_SUCCESS,
-        payload: {currenciesList: data.map(el => el.key = el.id)},
-      });
+  } catch (error) {
 
-    } catch (error) {
+    yield put({
+      type: REFRESH_CURRENCIES_FAIL,
+      payload: {error},
+    });
 
-      yield put({
-        type: REFRESH_CURRENCIES_FAIL,
-        payload: {error},
-      });
-
-    }
   }
 }
 
-export function* saga() {
-  yield all([
-    fetchCurrenciesLazySaga(),
-    refreshCurrenciesSaga(),
-  ]);
+export function* currenciesSaga() {
+  yield takeEvery(FETCH_CURRENCIES_REQUEST, fetchCurrenciesLazySaga);
+  yield takeEvery(REFRESH_CURRENCIES_REQUEST, refreshCurrenciesSaga);
 }

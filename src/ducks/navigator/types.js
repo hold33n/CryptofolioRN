@@ -1,6 +1,5 @@
 // @flow
 
-
 export type path =
   | 'appRoot'
   | 'auth';

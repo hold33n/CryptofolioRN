@@ -1,20 +1,18 @@
-import React, {Component} from 'react'
-import { StyleSheet, Text, View, RefreshControl, ScrollView } from 'react-native'
-import LineChart from 'components/LineChart'
-import { coinDataSelector, progressSelector, progressReloadSelector, chartActiveFilterSelector, refreshCoinData } from 'ducks/currency'
-import { connect } from 'react-redux'
-import { Icon } from 'react-native-elements'
-import { GREEN, RED, GREY_80, GREY_10 } from 'colors'
-import currencyFormatter from 'currency-formatter'
+// @flow
+
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, RefreshControl, ScrollView} from 'react-native';
+import LineChart from 'components/LineChart';
+import {refreshCoinData} from 'ducks/currency/index';
+import {connect} from 'react-redux';
+import store from '../../../redux/store'
+import {Icon} from 'react-native-elements';
+import {GREEN, RED, GREY_80, GREY_10} from 'colors';
+import currencyFormatter from 'currency-formatter';
+import type {Props} from './types'
 
 
-@connect((state) => ({
-  coinData: coinDataSelector(state),
-  progress: progressSelector(state),
-  progressReload: progressReloadSelector(state),
-  activeFilter: chartActiveFilterSelector(state)
-}), { refreshCoinData })
-class CurrencyScreen extends Component {
+class CurrencyScreen extends Component<Props, {}> {
 
   constructor(props) {
     super(props);
@@ -38,8 +36,8 @@ class CurrencyScreen extends Component {
       market_cap_usd,
       available_supply,
       daily_value,
-      price_usd
-    } = this.props.coinData
+      price_usd,
+    } = this.props.coinData;
 
     return (
       <View style={styles.container}>
@@ -47,7 +45,7 @@ class CurrencyScreen extends Component {
           refreshControl={
             <RefreshControl
               refreshing={!this.props.progress && this.props.progressReload}
-              onRefresh={() => this.props.refreshCoinData(this.props.coinData.id, this.props.activeFilter)}
+              onRefresh={() => store.dispatch(refreshCoinData(this.props.coinData.id, this.props.activeFilter))}
             />
           }>
           <View>
@@ -57,12 +55,12 @@ class CurrencyScreen extends Component {
                 currencyFormatter.format(price_usd, {
                   symbol: '$',
                   precision: 2,
-                  format: '%v' // %s is the symbol and %v is the value
+                  format: '%v', // %s is the symbol and %v is the value
                 })) : (currencyFormatter.format(price_usd, {
-                  symbol: '$',
-                  precision: 6,
-                  format: '%v'
-                }))
+                symbol: '$',
+                precision: 6,
+                format: '%v',
+              }))
               }</Text>
             </View>
             <View style={styles.currencyChange}>
@@ -88,7 +86,6 @@ class CurrencyScreen extends Component {
             </View>
           </View>
           <LineChart
-            style={styles.col}
             coinId={this.props.coinData.id}
             progress={this.props.progress}
           />
@@ -99,7 +96,7 @@ class CurrencyScreen extends Component {
                 symbol: '$',
                 precision: 0,
                 format: '%s %v',
-                thousand: ' '
+                thousand: ' ',
               })}</Text>
             </View>
             <View style={styles.currencyInfo}>
@@ -108,7 +105,7 @@ class CurrencyScreen extends Component {
                 symbol: '$',
                 precision: 0,
                 format: '%s %v',
-                thousand: ' '
+                thousand: ' ',
               })}</Text>
             </View>
             <View style={styles.currencyInfo}>
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   currencyPriceSymbol: {
     fontFamily: 'Rubik-Medium',
@@ -152,7 +149,7 @@ const styles = StyleSheet.create({
     lineHeight: 36,
     fontFamily: 'Rubik-Medium',
     color: '#fff',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   currencyChange: {
     display: 'flex',
@@ -160,23 +157,23 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   currencyChangeText: {
     fontFamily: 'Rubik-Medium',
     color: '#8E97B6',
-    fontSize:  16,
+    fontSize: 16,
     lineHeight: 15,
     fontWeight: '600',
-    marginLeft: 8
+    marginLeft: 8,
   },
   priceChangePlus: {
     color: GREEN,
-    fontWeight: '600'
+    fontWeight: '600',
   },
   priceChangeMinus: {
     color: RED,
-    fontWeight: '600'
+    fontWeight: '600',
   },
   currencyInfo: {
     width: '100%',
@@ -200,8 +197,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 16,
     fontFamily: 'Rubik-Medium',
-  }
+  },
 });
 
 
-export default CurrencyScreen
+export default connect(({currency}) => ({
+  coinData: currency.data,
+  progress: currency.progressLoad,
+  progressReload: currency.progressReload,
+  activeFilter: currency.chartActiveFilter,
+}))(CurrencyScreen);

@@ -3,7 +3,7 @@
 export type currencyData = {|
   id: string,
   name: string,
-  key: string,
+  key?: string,
   symbol: string,
   rank: string,
   price_usd: number,

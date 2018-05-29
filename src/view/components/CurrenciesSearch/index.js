@@ -1,27 +1,28 @@
-import React, {PureComponent} from 'react'
-import { StyleSheet} from 'react-native'
-import { SearchBar } from 'react-native-elements'
-import { connect } from 'react-redux'
-import { addSearchPhrase, clearSearchPhrase, searchPhraseSelector } from 'ducks/currenciesSearch/index'
-import { GREY_60, GREY_80 } from 'colors'
+// @flow
+
+import React, {PureComponent} from 'react';
+import {StyleSheet} from 'react-native';
+import {SearchBar} from 'react-native-elements';
+import {connect} from 'react-redux';
+import store from '../../../redux/store'
+import {addSearchPhrase, clearSearchPhrase, searchPhraseSelector} from 'ducks/currenciesSearch/index';
+import {GREY_60, GREY_80} from 'colors';
+import type {Props} from './types'
 
 
-@connect((state) => ({
-  searchPhrase: searchPhraseSelector(state)
-}), { addSearchPhrase, clearSearchPhrase })
-class Search extends PureComponent {
+class Search extends PureComponent<Props, {}> {
 
   componentWillUnmount() {
-    this.props.clearSearchPhrase()
+    store.dispatch(clearSearchPhrase());
   }
 
-  handleTextChange = text => text ? this.props.addSearchPhrase(text) : this.props.clearSearchPhrase()
+  handleTextChange = text => text ? store.dispatch(addSearchPhrase(text)) : store.dispatch(clearSearchPhrase());
 
   render() {
 
-    const { searchPhrase } = this.props
+    const {searchPhrase} = this.props;
 
-    const clearIcon = searchPhrase ? { color: '#A0AAC9', name: 'close' } : false
+    const clearIcon = searchPhrase ? {color: '#A0AAC9', name: 'close'} : false;
 
     return (
       <SearchBar
@@ -30,13 +31,13 @@ class Search extends PureComponent {
         cancelButtonTitle='Cancel'
         containerStyle={styles.searchBar}
         inputStyle={styles.searchInput}
-        icon={{ type: 'material', color: '#A0AAC9', name: 'search' }}
+        icon={{type: 'material', color: '#A0AAC9', name: 'search'}}
         placeholderTextColor='#A0AAC9'
         onChangeText={this.handleTextChange}
         clearIcon={clearIcon}
         round
       />
-    )
+    );
   }
 }
 
@@ -59,7 +60,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingLeft: 28,
     borderRadius: 5,
-  }
+  },
 });
 
-export default Search
+
+export default connect((state) => ({
+  searchPhrase: searchPhraseSelector(state),
+}))(Search);
