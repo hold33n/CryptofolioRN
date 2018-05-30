@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 import codePush from 'react-native-code-push'
 
 
-class CodePush extends Component {
+class CodePush extends Component<{}, {}> {
   componentDidMount() {
     codePush.sync({
       updateDialog: true,

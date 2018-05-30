@@ -119,7 +119,7 @@ export const selectCurrency = createAction(SELECT_CURRENCY,
  * */
 
 function generateRef(coinId, filter) {
-  let startInterval;
+  let startInterval: number = 0;
 
   if (filter === 'All') {
     return {

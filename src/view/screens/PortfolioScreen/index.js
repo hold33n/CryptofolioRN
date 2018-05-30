@@ -5,18 +5,18 @@ import {appName} from 'config';
 import {StyleSheet, View, Text} from 'react-native';
 import {GREY_80} from 'colors';
 import {iconsMap} from 'assets/AppIcons';
-import type {Props} from './types'
+import type {Props, NavigatorEvent} from './types'
 
 
 class PortfolioScreen extends Component<Props, {}> {
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
   }
 
-  onNavigatorEvent(event) { // this is the onPress handler for the two buttons together
+  onNavigatorEvent(event: NavigatorEvent) { // this is the onPress handler for the two buttons together
     if (event.type === 'NavBarButtonPress') { // this is the event type for button presses
       if (event.id === 'addItemToPortfolio') { // this is the same id field from the static navigatorButtons definition
         this.props.navigator.push({

@@ -2,6 +2,7 @@
 
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import Highcharts from 'highcharts';
 import ChartView from 'react-native-highcharts';
 import {fetchChartData, chartDataSelector} from 'ducks/currency';
 import {connect} from 'react-redux';
@@ -9,11 +10,16 @@ import store from '../../../redux/store'
 import _ from 'lodash';
 import LottieView from 'lottie-react-native';
 import {GREY_80, GREY_60, GREY_10} from 'colors';
-import type {State, Props} from './types'
+import type {State, Props, Animation} from './types'
+
 
 class Spinner extends Component<{}, {}> {
+  animation: Animation;
+
   componentDidMount() {
-    this.animation.play();
+    if (this.animation) {
+      this.animation.play();
+    }
   }
 
   render() {
@@ -25,7 +31,7 @@ class Spinner extends Component<{}, {}> {
           <LottieView
             source={require('../../../assets/loader.json')}
             style={styles.loader}
-            ref={animation => { this.animation = animation; }}
+            ref={el => this.animation = el}
           />
         </View>
       </View>
@@ -56,14 +62,11 @@ class LineChart extends Component<Props, State> {
   };
 
   render() {
-    const Highcharts = 'Highcharts';
-
     const {activeFilter} = this.props;
 
     const conf = {
       chart: {
         type: 'area',
-        animation: Highcharts.svg, // don't animate in old IE
         marginRight: 10,
         backgroundColor: GREY_80,
       },
@@ -112,7 +115,7 @@ class LineChart extends Component<Props, State> {
         },
         padding: 10,
         formatter: function () {
-          return `<b>$${(this.y >= 1) ? Highcharts.numberFormat(this.y, 2) : Highcharts.numberFormat(this.y, 6)}</b>`;
+          return `<b>$${(this.y >=1) ? this.y.toFixed(2) : this.y.toFixed(6)}</b>`
         },
       },
       legend: {
@@ -172,10 +175,12 @@ class LineChart extends Component<Props, State> {
 
           return data.length && data
             .filter((el, index) => index % step === 0)
-            .map(([time, price]) => ({
-              x: time,
-              y: price,
-            }));
+            .map(([time, price]) => {
+              return {
+                x: time,
+                y: price
+              }
+            });
         })(),
       }],
     };

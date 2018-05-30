@@ -4,8 +4,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, Text, TextInput} from 'react-native';
 import {GREY_5} from 'colors';
+import type {Props} from './types'
 
-const InputField = ({inputName, inputValue, handleChange, ...props}) =>
+const InputField = ({inputName, inputValue, handleChange, ...props}: Props) =>
   <View style={styles.inputField}>
     <Text style={styles.inputLabel}>{inputName}</Text>
     <TextInput

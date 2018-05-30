@@ -6,9 +6,10 @@ export type State = {|
   opacity: 0 | 1
 |}
 
-
 export type Props = {|
   data: chartDataPoint[],
   activeFilter: chartFilters,
   coinId: string,
 |}
+
+export type Animation = null | { play(): void };
