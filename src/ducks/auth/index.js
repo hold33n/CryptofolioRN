@@ -41,7 +41,7 @@ export const TOGGLE_FORM_STATE_FAIL: 'AUTH/TOGGLE_FORM_STATE_FAIL' = 'AUTH/TOGGL
  * Reducer
  * */
 
-export const initialState = {
+export const initialState: State = {
   formState: 'SignIn',
   progress: false,
   error: null,
@@ -149,6 +149,7 @@ function* signInSaga({ payload: {email, password} }) {
   }
 
 }
+
 
 function* signUpSaga({ payload: {email, password} }) {
 

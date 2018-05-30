@@ -28,7 +28,7 @@ export const REFRESH_CURRENCIES_FAIL: 'CURRENCIES/REFRESH_CURRENCIES_FAIL' = 'CU
  * Reducer
  * */
 
-export const initialState = {
+export const initialState: State = {
   currenciesList: [],
   progressLoad: false,
   progressReload: false,

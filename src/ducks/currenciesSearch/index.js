@@ -20,7 +20,7 @@ export const CLEAR_SEARCH_PHRASE: 'SEARCH/CLEAR_SEARCH_PHRASE' = 'SEARCH/CLEAR_S
  * Reducer
  * */
 
-export const initialState = {
+export const initialState: State = {
   searchPhrase: '',
 };
 

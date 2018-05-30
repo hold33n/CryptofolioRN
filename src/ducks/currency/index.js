@@ -31,7 +31,7 @@ export const REFRESH_COIN_FAIL: 'CURRENCY/REFRESH_COIN_FAIL' = 'CURRENCY/REFRESH
  * Reducer
  * */
 
-export const initialState = {
+export const initialState: State = {
   data: null,
   chartData: {
     market_cap_by_available_supply: [],
