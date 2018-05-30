@@ -3,12 +3,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, RefreshControl, ScrollView} from 'react-native';
 import LineChart from 'components/LineChart';
+import currencyFormatter from 'currency-formatter';
 import {refreshCoinData} from 'ducks/currency/index';
 import {connect} from 'react-redux';
 import store from '../../../redux/store'
 import {Icon} from 'react-native-elements';
 import {GREEN, RED, GREY_80, GREY_10} from 'colors';
-import currencyFormatter from 'currency-formatter';
+import {formatPricePrecision} from 'utils/currency';
 import type {Props} from './types'
 
 
@@ -51,17 +52,7 @@ class CurrencyScreen extends Component<Props, {}> {
           <View>
             <View style={styles.currencyPrice}>
               <Text style={styles.currencyPriceSymbol}>$</Text>
-              <Text style={styles.currencyPriceValue}>{(price_usd >= 1) ? (
-                currencyFormatter.format(price_usd, {
-                  symbol: '$',
-                  precision: 2,
-                  format: '%v', // %s is the symbol and %v is the value
-                })) : (currencyFormatter.format(price_usd, {
-                symbol: '$',
-                precision: 6,
-                format: '%v',
-              }))
-              }</Text>
+              <Text style={styles.currencyPriceValue}>{formatPricePrecision(+price_usd)}</Text>
             </View>
             <View style={styles.currencyChange}>
               {(percent_change_24h > 0) ? (

@@ -2,7 +2,7 @@
 
 import React, {PureComponent} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-import currencyFormatter from 'currency-formatter';
+import {formatPricePrecision} from 'utils/currency';
 import {GREY_MARKER_BG, GREEN, RED} from 'colors';
 import type {Props} from './types'
 
@@ -28,18 +28,7 @@ class CurrencyBlock extends PureComponent<Props, {}> {
             </View>
           </View>
           <View>
-            <Text style={styles.currencyPrice}>
-              {price_usd ?
-                (
-                  (price_usd >= 1) ? (
-                    currencyFormatter.format(price_usd, {
-                      symbol: '$',
-                      precision: 2,
-                    })) : (currencyFormatter.format(price_usd, {
-                    symbol: '$',
-                    precision: 6,
-                  }))
-                ) : false}</Text>
+            <Text style={styles.currencyPrice}>{price_usd ? formatPricePrecision(+price_usd) : false}</Text>
             <Text style={styles.currencyChange}>{price_usd ? (
               (percent_change_24h > 0) ? (
                 <Text style={styles.priceChangePlus}>+{percent_change_24h}%</Text>

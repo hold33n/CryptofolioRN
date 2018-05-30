@@ -3,14 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "-----Development-----": "",
     "start": "react-native start",
-    "android": "react-native run-android",
+    "reset-cache": "npm start -- --reset-cache",
     "ios": "react-native run-ios",
     "ios-device": "react-native run-ios --device",
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'",
-    "reset-cache": "npm start -- --reset-cache",
+    "-----Production-----": "",
     "codepush": "appcenter codepush release-react",
-    "flow": "flow"
+    "-----Lint-----": "",
+    "flow": "flow",
+    "-----Test-----": "",
+    "test": "jest --config=jestconfig.json -u --notify"
   },
   "dependencies": {
     "axios": "^0.18.0",

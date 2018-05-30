@@ -27,6 +27,9 @@
 # dependencies
 /node_modules
 
+# Jest
+/jest
+
 # misc
 .env.local
 .env.development.local

@@ -1,0 +1,8 @@
+{
+  "cacheDirectory": "./jest",
+  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(jsx|js)$",
+  "moduleFileExtensions": [
+    "jsx",
+    "js"
+  ]
+}

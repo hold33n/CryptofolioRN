@@ -10,7 +10,7 @@ import {createAction, handleActions} from 'redux-actions';
  * */
 export const moduleName: string = 'navigator';
 
-export const NAVIGATE: 'NAVIGATE' = 'NAVIGATE';
+export const NAVIGATE: 'NAVIGATOR/NAVIGATE' = 'NAVIGATOR/NAVIGATE';
 
 
 /**

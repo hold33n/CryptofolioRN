@@ -2,7 +2,6 @@
 
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import Highcharts from 'highcharts';
 import ChartView from 'react-native-highcharts';
 import {fetchChartData, chartDataSelector} from 'ducks/currency';
 import {connect} from 'react-redux';
@@ -102,8 +101,6 @@ class LineChart extends Component<Props, State> {
             color: '#689FEB',
           },
         },
-        // minorGridLineColor: '#475173',
-        // tickColor: '#364061',
       },
       tooltip: {
         backgroundColor: GREY_60,
@@ -115,7 +112,7 @@ class LineChart extends Component<Props, State> {
         },
         padding: 10,
         formatter: function () {
-          return `<b>$${(this.y >=1) ? this.y.toFixed(2) : this.y.toFixed(6)}</b>`
+          return `<b>$${(this.y >= 1) ? this.y.toFixed(2) : this.y.toFixed(6)}</b>`
         },
       },
       legend: {

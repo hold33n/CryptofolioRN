@@ -11,9 +11,9 @@ import type {State} from './types';
  * */
 export const moduleName = 'currencies-search';
 
-export const ADD_SEARCH_PHRASE: 'ADD_SEARCH_PHRASE' = 'ADD_SEARCH_PHRASE';
+export const ADD_SEARCH_PHRASE: 'SEARCH/ADD_SEARCH_PHRASE' = 'SEARCH/ADD_SEARCH_PHRASE';
 
-export const CLEAR_SEARCH_PHRASE: 'CLEAR_SEARCH_PHRASE' = 'CLEAR_SEARCH_PHRASE';
+export const CLEAR_SEARCH_PHRASE: 'SEARCH/CLEAR_SEARCH_PHRASE' = 'SEARCH/CLEAR_SEARCH_PHRASE';
 
 
 /**
