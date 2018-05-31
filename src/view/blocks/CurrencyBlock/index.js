@@ -1,23 +1,26 @@
 // @flow
 
-import React, {PureComponent} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
-import {formatPricePrecision} from 'utils/currency';
-import {GREY_MARKER_BG, GREEN, RED} from 'colors';
-import type {Props} from './types'
+import * as React from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { formatPricePrecision } from 'utils/currency';
+import { GREY_MARKER_BG, GREEN, RED } from 'colors';
+import type { Props } from './types';
 
-
-class CurrencyBlock extends PureComponent<Props, {}> {
+class CurrencyBlock extends React.PureComponent<Props, {}> {
   render() {
-
     const {
-      item: {
-        name,
-        symbol,
-        price_usd,
-        percent_change_24h,
-      },
+      item: { name, symbol, price_usd, percent_change_24h },
     } = this.props;
+
+    let priceChange: boolean | React.Element<typeof Text> = false;
+
+    if (price_usd) {
+      if (percent_change_24h > 0) {
+        priceChange = <Text style={styles.priceChangePlus}>+{percent_change_24h}%</Text>;
+      } else {
+        priceChange = <Text style={styles.priceChangeMinus}>{percent_change_24h}%</Text>;
+      }
+    }
 
     return (
       <View style={styles.currencyContainer}>
@@ -28,14 +31,10 @@ class CurrencyBlock extends PureComponent<Props, {}> {
             </View>
           </View>
           <View>
-            <Text style={styles.currencyPrice}>{price_usd ? formatPricePrecision(+price_usd) : false}</Text>
-            <Text style={styles.currencyChange}>{price_usd ? (
-              (percent_change_24h > 0) ? (
-                <Text style={styles.priceChangePlus}>+{percent_change_24h}%</Text>
-              ) : (
-                <Text style={styles.priceChangeMinus}>{percent_change_24h}%</Text>
-              )) : false
-            }</Text>
+            <Text style={styles.currencyPrice}>
+              {price_usd ? formatPricePrecision(+price_usd) : false}
+            </Text>
+            <Text style={styles.currencyChange}>{priceChange}</Text>
           </View>
         </View>
       </View>

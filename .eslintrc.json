@@ -1,0 +1,109 @@
+{
+  "extends": ["airbnb", "plugin:flowtype/recommended", "prettier"],
+  "parser": "babel-eslint",
+  "globals": {
+    "__DEV__": true
+  },
+  "env": {
+    "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "blocks": "./src/view/blocks",
+        "components": "./src/view/components",
+        "screens": "./src/view/screens"
+      }
+    }
+  },
+  "plugins": ["flowtype"],
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "react/no-unused-prop-types": [
+      2,
+      {
+        "skipShapeProps": true
+      }
+    ],
+    "react/no-array-index-key": 0,
+    "import/prefer-default-export": 0,
+    "no-trailing-spaces": [
+      "error",
+      {
+        "skipBlankLines": true
+      }
+    ],
+    "react/sort-comp": [
+      1,
+      {
+        "order": [
+          "type-annotations",
+          "static-methods",
+          "instance-variables",
+          "lifecycle",
+          "everything-else",
+          "render"
+        ]
+      }
+    ],
+    "no-underscore-dangle": 0,
+    "no-use-before-define": 0,
+    "no-mixed-operators": 0,
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "func-names": 0,
+    "arrow-parens": 0,
+    "no-confusing-arrow": 0,
+    "jsx-a11y/href-no-hash": 0,
+    "jsx-quotes": ["warn", "prefer-double"],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
+      {
+        "blankLine": "any",
+        "prev": ["const", "let", "var"],
+        "next": ["const", "let", "var"]
+      }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/forbid-prop-types": 0,
+    "react/require-default-props": 0,
+    "react-native/split-platform-components": 0,
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "react/jsx-indent": ["error", 2],
+    "react/jsx-indent-props": ["error", 2],
+    "react/prop-types": [
+      2,
+      {
+        "ignore": ["navigator"]
+      }
+    ],
+    "global-require": 0,
+    "import/no-named-as-default": 0,
+    "import/no-named-as-default-member": 0,
+    "class-methods-use-this": 0
+  }
+}

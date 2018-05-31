@@ -1,47 +1,17 @@
 // @flow
 
-import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import ChartView from 'react-native-highcharts';
-import {fetchChartData, chartDataSelector} from 'ducks/currency';
-import {connect} from 'react-redux';
-import store from '../../../redux/store'
+import { fetchChartData, chartDataSelector } from 'ducks/currency';
+import { connect } from 'react-redux';
 import _ from 'lodash';
-import LottieView from 'lottie-react-native';
-import {GREY_80, GREY_60, GREY_10} from 'colors';
-import type {State, Props, Animation} from './types'
-
-
-class Spinner extends Component<{}, {}> {
-  animation: Animation;
-
-  componentDidMount() {
-    if (this.animation) {
-      this.animation.play();
-    }
-  }
-
-  render() {
-    return (
-      <View style={[styles.container, styles.containerLoader]}>
-        <View
-          style={styles.loader}
-        >
-          <LottieView
-            source={require('../../../assets/loader.json')}
-            style={styles.loader}
-            ref={el => this.animation = el}
-          />
-        </View>
-      </View>
-    );
-  }
-}
-
-
+import { GREY_80, GREY_60, GREY_10 } from 'colors';
+import store from '../../../redux/store';
+import type { State, Props } from './types';
+import Spinner from './Spinner';
 
 class LineChart extends Component<Props, State> {
-
   state = {
     opacity: 0,
   };
@@ -52,16 +22,17 @@ class LineChart extends Component<Props, State> {
 
   componentWillUpdate(nextProps) {
     if (!_.isEqual(nextProps, this.props)) {
-      this.setState({opacity: 0});
+      this.setState({ opacity: 0 });
     }
   }
 
-  toggleFilter = (filterId) => () => {
-    if (filterId !== this.props.activeFilter) store.dispatch(fetchChartData(this.props.coinId, filterId));
+  toggleFilter = filterId => () => {
+    if (filterId !== this.props.activeFilter)
+      store.dispatch(fetchChartData(this.props.coinId, filterId));
   };
 
   render() {
-    const {activeFilter} = this.props;
+    const { activeFilter } = this.props;
 
     const conf = {
       chart: {
@@ -92,10 +63,12 @@ class LineChart extends Component<Props, State> {
         },
         floor: 0,
         gridLineColor: GREY_60,
-        plotLines: [{
-          value: 0,
-          width: 1,
-        }],
+        plotLines: [
+          {
+            value: 0,
+            width: 1,
+          },
+        ],
         labels: {
           style: {
             color: '#689FEB',
@@ -111,8 +84,8 @@ class LineChart extends Component<Props, State> {
           fontFamily: 'Rubik-Medium',
         },
         padding: 10,
-        formatter: function () {
-          return `<b>$${(this.y >= 1) ? this.y.toFixed(2) : this.y.toFixed(6)}</b>`
+        formatter() {
+          return `<b>$${this.y >= 1 ? this.y.toFixed(2) : this.y.toFixed(6)}</b>`;
         },
       },
       legend: {
@@ -125,10 +98,7 @@ class LineChart extends Component<Props, State> {
         area: {
           fillColor: {
             linearGradient: [0, 0, 0, 300],
-            stops: [
-              [0, 'rgba(104, 159, 235, 0.35)'],
-              [1, 'rgba(54, 64, 97, 0.3)'],
-            ],
+            stops: [[0, 'rgba(104, 159, 235, 0.35)'], [1, 'rgba(54, 64, 97, 0.3)']],
           },
           marker: {
             radius: 2,
@@ -142,44 +112,42 @@ class LineChart extends Component<Props, State> {
           threshold: null,
         },
       },
-      series: [{
-        color: {
-          linearGradient: [0, 0, 0, 500],
-          stops: [
-            [0, '#50B6C4'],
-            [1, '#3476AD'],
-          ],
-        },
-        // data: (function () {
-        //   // generate an array of random data
-        //   var data = [],
-        //     time = (new Date()).getTime(),
-        //     i;
-        //
-        //   for (i = -19; i <= 0; i += 1) {
-        //     data.push({
-        //       x: time + i * 1000,
-        //       y: Math.random()
-        //     });
-        //   }
-        //   return data;
-        // }())
+      series: [
+        {
+          color: {
+            linearGradient: [0, 0, 0, 500],
+            stops: [[0, '#50B6C4'], [1, '#3476AD']],
+          },
+          // data: (function () {
+          //   // generate an array of random data
+          //   var data = [],
+          //     time = (new Date()).getTime(),
+          //     i;
+          //
+          //   for (i = -19; i <= 0; i += 1) {
+          //     data.push({
+          //       x: time + i * 1000,
+          //       y: Math.random()
+          //     });
+          //   }
+          //   return data;
+          // }())
 
-        data: (() => {
-          const {data} = this.props;
+          data: (() => {
+            const { data } = this.props;
 
-          const step = Math.floor(data.length / 150);
+            const step = Math.floor(data.length / 150);
 
-          return data.length && data
-            .filter((el, index) => index % step === 0)
-            .map(([time, price]) => {
-              return {
+            return (
+              data.length &&
+              data.filter((el, index) => index % step === 0).map(([time, price]) => ({
                 x: time,
-                y: price
-              }
-            });
-        })(),
-      }],
+                y: price,
+              }))
+            );
+          })(),
+        },
+      ],
     };
 
     const options = {
@@ -210,29 +178,32 @@ class LineChart extends Component<Props, State> {
       },
     ];
 
-
     return (
       <View>
         <View>
-          {this.props.progress ?
-            <Spinner/>
-            :
+          {this.props.progress ? (
+            <Spinner />
+          ) : (
             <ChartView
-              style={[styles.container, {opacity: this.state.opacity}]}
+              style={[styles.container, { opacity: this.state.opacity }]}
               config={conf}
               options={options}
-              onLoadEnd={() => this.setState({opacity: 1})}
-            />}
+              onLoadEnd={() => this.setState({ opacity: 1 })}
+            />
+          )}
         </View>
         <View style={styles.filtersContainer}>
-          {filters.map(({id}) => (
-            <TouchableOpacity
-              style={styles.filtersItem}
-              key={id}
-              onPress={this.toggleFilter(id)}
-            >
-              <Text style={[styles.filtersItemText, (activeFilter === id) && styles.filtersItemTextActive]}>{id}</Text>
-              {(activeFilter === id) && <View style={styles.activeFilterTick}/>}
+          {filters.map(({ id }) => (
+            <TouchableOpacity style={styles.filtersItem} key={id} onPress={this.toggleFilter(id)}>
+              <Text
+                style={[
+                  styles.filtersItemText,
+                  activeFilter === id && styles.filtersItemTextActive,
+                ]}
+              >
+                {id}
+              </Text>
+              {activeFilter === id && <View style={styles.activeFilterTick} />}
             </TouchableOpacity>
           ))}
         </View>
@@ -241,8 +212,7 @@ class LineChart extends Component<Props, State> {
   }
 }
 
-const styles = StyleSheet.create({
-
+export const styles = StyleSheet.create({
   container: {
     height: 280,
     marginTop: 15,
@@ -288,8 +258,7 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default connect((state) => ({
+export default connect(state => ({
   activeFilter: state.currency.chartActiveFilter,
   data: chartDataSelector(state),
-}))(LineChart)
+}))(LineChart);

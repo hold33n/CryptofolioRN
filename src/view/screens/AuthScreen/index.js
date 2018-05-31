@@ -1,15 +1,14 @@
 // @flow
 
-import React, {Component} from 'react';
-import {StatusBar, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import React, { Component } from 'react';
+import { StatusBar, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import InputField from 'components/InputField';
 import CodePush from 'components/CodePush';
+import { connect } from 'react-redux';
+import { signIn, signUp, toggleFormState } from 'ducks/auth';
+import { GREY_5, GREY_80, RED } from 'colors';
 import store from '../../../redux/store';
-import {connect} from 'react-redux';
-import {signIn, signUp, toggleFormState} from 'ducks/auth';
-import {GREY_5, GREY_80, RED} from 'colors';
-import type {Props, State} from './types'
-
+import type { Props, State } from './types';
 
 class AuthScreen extends Component<Props, State> {
   state = {
@@ -17,26 +16,25 @@ class AuthScreen extends Component<Props, State> {
     password: '',
   };
 
-  handleEmailChange = value => this.setState({email: value});
+  handleEmailChange = value => this.setState({ email: value });
 
-  handlePasswordChange = value => this.setState({password: value});
+  handlePasswordChange = value => this.setState({ password: value });
 
-  handleSubmit = () => (this.props.formState === 'SignUp') ?
-    store.dispatch(signUp({email: this.state.email, password: this.state.password}))
-    :
-    store.dispatch(signIn({email: this.state.email, password: this.state.password}));
-
+  handleSubmit = () =>
+    this.props.formState === 'SignUp'
+      ? store.dispatch(signUp({ email: this.state.email, password: this.state.password }))
+      : store.dispatch(signIn({ email: this.state.email, password: this.state.password }));
 
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-        />
+        <StatusBar barStyle="light-content" />
 
-        <CodePush/>
+        <CodePush />
 
-        <Text style={styles.title}>{(this.props.formState === 'SignUp') ? 'Create Account' : 'Log in'}</Text>
+        <Text style={styles.title}>
+          {this.props.formState === 'SignUp' ? 'Create Account' : 'Log in'}
+        </Text>
 
         <Text style={styles.error}>{this.props.error}</Text>
 
@@ -58,21 +56,24 @@ class AuthScreen extends Component<Props, State> {
 
         <TouchableOpacity onPress={this.handleSubmit}>
           <View style={styles.submitButton}>
-            <Text style={styles.submitButtonText}>{(this.props.formState === 'SignUp') ? 'SIGN UP' : 'SIGN IN'}</Text>
+            <Text style={styles.submitButtonText}>
+              {this.props.formState === 'SignUp' ? 'SIGN UP' : 'SIGN IN'}
+            </Text>
           </View>
         </TouchableOpacity>
 
         <View style={styles.toggleFormControls}>
-          <Text
-            style={styles.paragraph}>{(this.props.formState === 'SignUp') ? 'Already have an account?' : 'Haven\'t got an account?'}</Text>
-          <TouchableOpacity
-            style={styles.link}
-            onPress={() => store.dispatch(toggleFormState())}
-          >
-            <Text style={styles.linkText}>{(this.props.formState === 'SignUp') ? 'Sign in' : 'Sign up'}</Text>
+          <Text style={styles.paragraph}>
+            {this.props.formState === 'SignUp'
+              ? 'Already have an account?'
+              : "Haven't got an account?"}
+          </Text>
+          <TouchableOpacity style={styles.link} onPress={() => store.dispatch(toggleFormState())}>
+            <Text style={styles.linkText}>
+              {this.props.formState === 'SignUp' ? 'Sign in' : 'Sign up'}
+            </Text>
           </TouchableOpacity>
         </View>
-
       </View>
     );
   }
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 0,
     },
-    shadowOpacity: .6,
+    shadowOpacity: 0.6,
     shadowRadius: 10,
     paddingTop: 17,
     paddingBottom: 17,
@@ -146,12 +147,8 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default connect(
-  ({
-     auth: {
-      progress, error, formState
-    }
-  }) => ({
-  progress, error, formState,
+export default connect(({ auth: { progress, error, formState } }) => ({
+  progress,
+  error,
+  formState,
 }))(AuthScreen);

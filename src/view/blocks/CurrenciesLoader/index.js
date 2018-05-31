@@ -1,33 +1,29 @@
 // @flow
 
-import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {GREY_60} from 'colors';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { GREY_60 } from 'colors';
 
-class CurrenciesLoader extends Component<{}, {}> {
-  render() {
-    return (
-      <View style={styles.currencyContainer}>
-        <View style={styles.grid}>
-          <View>
-            <View style={styles.currencySymbol}/>
-          </View>
-          <View style={styles.col_right}>
-            <View style={styles.currencyPrice}/>
-            <View style={styles.currencyChange}/>
-          </View>
-        </View>
+const CurrenciesLoader = () => (
+  <View style={styles.currencyContainer}>
+    <View style={styles.grid}>
+      <View>
+        <View style={styles.currencySymbol} />
       </View>
-    );
-  }
-}
+      <View style={styles.col_right}>
+        <View style={styles.currencyPrice} />
+        <View style={styles.currencyChange} />
+      </View>
+    </View>
+  </View>
+);
 
 const styles = StyleSheet.create({
   currencyContainer: {
     paddingLeft: 15,
     paddingRight: 15,
     marginBottom: 36,
-    opacity: .4,
+    opacity: 0.4,
   },
   grid: {
     flexDirection: 'row',
@@ -59,6 +55,5 @@ const styles = StyleSheet.create({
     backgroundColor: GREY_60,
   },
 });
-
 
 export default CurrenciesLoader;

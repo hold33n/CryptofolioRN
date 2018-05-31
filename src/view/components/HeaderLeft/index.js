@@ -1,15 +1,13 @@
-import React, {Component} from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {navigateBack} from 'ducks/navigator/index';
-import {connect} from 'react-redux';
+import React from 'react';
+import { StyleSheet, Text } from 'react-native';
+import { navigateBack } from 'ducks/navigator';
+import { connect } from 'react-redux';
 
-class HeaderLeft extends Component {
-  render() {
-    return (
-      <Text style={styles.headerLeft} onPress={this.props.navigateBack}>{this.props.title}</Text>
-    );
-  }
-}
+const HeaderLeft = () => (
+  <Text style={styles.headerLeft} onPress={this.props.navigateBack}>
+    {this.props.title}
+  </Text>
+);
 
 const styles = StyleSheet.create({
   headerLeft: {
@@ -19,4 +17,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null, {navigateBack})(HeaderLeft);
+export default connect(
+  null,
+  { navigateBack },
+)(HeaderLeft);

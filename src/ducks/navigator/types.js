@@ -1,9 +1,7 @@
 // @flow
 
-export type path =
-  | 'appRoot'
-  | 'auth';
+export type Path = 'appRoot' | 'auth';
 
 export type State = {|
-  +path: path
+  +path: Path,
 |};

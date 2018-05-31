@@ -1,43 +1,40 @@
 // @flow
 
-import React, {Component} from 'react';
-import {Navigation} from 'react-native-navigation';
+import { Component } from 'react';
+import { Navigation } from 'react-native-navigation';
+import { Provider } from 'react-redux';
+import { NAVIGATE, moduleName as navigatorModule } from 'ducks/navigator';
+import { iconsMap, iconsLoaded } from 'assets/AppIcons';
+import { appName, registerScreens } from 'config';
+import { GREY_5, GREY_80, GREY_100 } from 'colors';
+import { AsyncStorage } from 'react-native';
+import type { Path } from 'ducks/navigator/types';
 import store from './redux/store';
-import {Provider} from 'react-redux';
-import {NAVIGATE, moduleName as navigatorModule} from 'ducks/navigator';
-import {iconsMap, iconsLoaded} from 'assets/AppIcons';
-import {appName, registerScreens} from 'config';
-import {GREY_5, GREY_80, GREY_100} from 'colors';
-import {AsyncStorage} from 'react-native';
-import type {path} from 'ducks/navigator/types'
-
 
 registerScreens(store, Provider);
 
 class App extends Component<{}, {}> {
+  currentPath: Path;
+
   constructor(props: void) {
     super(props);
 
     store.subscribe(this.onStoreUpdate.bind(this));
 
     iconsLoaded.then(async () => {
-      try {
-        const userId = await AsyncStorage.getItem('userId');
+      const userId = await AsyncStorage.getItem('userId');
 
-        store.dispatch({
-          type: NAVIGATE,
-          payload: {
-            path: userId ? 'appRoot' : 'auth',
-          },
-        });
-      } catch (error) {
-        console.log(error)
-      }
+      store.dispatch({
+        type: NAVIGATE,
+        payload: {
+          path: userId ? 'appRoot' : 'auth',
+        },
+      });
     });
   }
 
   onStoreUpdate() {
-    let path: path = store.getState()[navigatorModule]['path'];
+    const { path }: { path: Path } = store.getState()[navigatorModule];
 
     // handle a root change
     if (this.currentPath !== path) {
@@ -46,8 +43,7 @@ class App extends Component<{}, {}> {
     }
   }
 
-  startApp(root: path) {
-
+  startApp(root: Path) {
     const navigatorStyle = {
       navBarTranslucent: false,
       navBarTextFontFamily: 'Rubik-Medium',
@@ -68,7 +64,8 @@ class App extends Component<{}, {}> {
           icon: iconsMap['ios-stats'],
           selectedIcon: iconsMap['ios-stats'],
           title: 'CURRENCIES',
-          iconInsets: { // add this to change icon position (optional, iOS only).
+          iconInsets: {
+            // add this to change icon position (optional, iOS only).
             top: 6, // optional, default is 0.
             left: 0, // optional, default is 0.
             bottom: -4, // optional, default is 0.
@@ -81,7 +78,8 @@ class App extends Component<{}, {}> {
           icon: iconsMap['ios-analytics'],
           selectedIcon: iconsMap['ios-analytics'],
           title: 'PORTFOLIO',
-          iconInsets: { // add this to change icon position (optional, iOS only).
+          iconInsets: {
+            // add this to change icon position (optional, iOS only).
             top: 6, // optional, default is 0.
             left: 0, // optional, default is 0.
             bottom: -4, // optional, default is 0.
@@ -108,7 +106,8 @@ class App extends Component<{}, {}> {
             ...navigatorStyle,
             navBarTextColor: '#fff',
           },
-          iconInsets: { // add this to change icon position (optional, iOS only).
+          iconInsets: {
+            // add this to change icon position (optional, iOS only).
             top: 6, // optional, default is 0.
             left: 0, // optional, default is 0.
             bottom: -4, // optional, default is 0.
@@ -129,9 +128,7 @@ class App extends Component<{}, {}> {
       },
     };
 
-
     switch (root) {
-
       case 'auth':
         Navigation.startSingleScreenApp({
           screen: {
@@ -142,13 +139,15 @@ class App extends Component<{}, {}> {
             },
           },
         });
-        return;
+        break;
 
       case 'appRoot':
         Navigation.startTabBasedApp(appNavigatorConfig);
-        return;
+        break;
 
-      default: //no root found
+      default:
+        // no root found
+        break;
     }
   }
 }

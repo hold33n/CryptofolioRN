@@ -1,11 +1,10 @@
 // @flow
 
-
 export type Props = {
-  navigator: Object
-}
+  navigator: Object,
+};
 
 export type NavigatorEvent = {
   type: string,
-  id: string
-}
+  id: string,
+};

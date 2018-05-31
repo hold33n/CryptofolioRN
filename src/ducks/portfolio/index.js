@@ -1,7 +1,6 @@
 // @flow
 
-import type { State } from './types'
-
+import type { State } from './types';
 
 /**
  * Constants
@@ -10,7 +9,6 @@ import type { State } from './types'
 export const moduleName = 'portfolio';
 
 export const CONST_EXAMPLE = 'CONST_EXAMPLE';
-
 
 /**
  * Reducer
@@ -24,13 +22,11 @@ export const initialState: State = {
   error: null,
 };
 
-
 /**
  * Selectors
  * */
 
 export const stateSelector = (state: Object) => state[moduleName];
-
 
 /**
  * Action Creators
@@ -39,7 +35,3 @@ export const stateSelector = (state: Object) => state[moduleName];
 /**
  * Sagas
  * */
-
-export function* saga(): mixed {
-
-}

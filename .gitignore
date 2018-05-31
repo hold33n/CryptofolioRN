@@ -43,3 +43,5 @@ yarn-error.log*
 # ios
 /ios/build
 /ios/Pods
+/ios/Cryptofolio/.DS_Store
+/ios/Vendor/.DS_Store

@@ -1,9 +1,9 @@
 // @flow
 
-import type {coinData, chartFilters} from '../../../ducks/currency/types';
+import type { coinData, chartFilters } from '../../../ducks/currency/types';
 
 export type Props = {
-  coinData: coinData;
+  coinData: coinData,
   progress: boolean,
   progressReload: boolean,
   activeFilter: chartFilters,

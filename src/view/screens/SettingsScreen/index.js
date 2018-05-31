@@ -1,12 +1,11 @@
 // @flow
 
-import React, {Component} from 'react';
-import {StatusBar, TouchableOpacity, StyleSheet, Text, View} from 'react-native';
-import {signOut} from 'ducks/auth/index';
-import store from '../../../redux/store'
-import {List, ListItem} from 'react-native-elements';
-import {GREY_5, GREY_80, GREY_100} from 'colors';
-
+import React, { Component } from 'react';
+import { StatusBar, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { signOut } from 'ducks/auth/index';
+import { List, ListItem } from 'react-native-elements';
+import { GREY_5, GREY_80, GREY_100 } from 'colors';
+import store from '../../../redux/store';
 
 class SettingsScreen extends Component<{}, {}> {
   static get options(): Object {
@@ -36,7 +35,6 @@ class SettingsScreen extends Component<{}, {}> {
   }
 
   render() {
-
     const list = [
       {
         title: 'Reset password',
@@ -72,31 +70,22 @@ class SettingsScreen extends Component<{}, {}> {
       },
     ];
 
-
     return (
       <View>
-        <StatusBar
-          barStyle="light-content"
-        />
+        <StatusBar barStyle="light-content" />
         <Text style={styles.email}>Your email: asd</Text>
-        <List
-          containerStyle={styles.container}>
-          {
-            list.map(({title, icon, onClickEvent}, i) => (
-              <TouchableOpacity
-                key={i}
-                onPress={onClickEvent}
-              >
-                <ListItem
-                  title={title}
-                  titleStyle={styles.listItemTitle}
-                  containerStyle={styles.listItem}
-                  leftIcon={icon}
-                  hideChevron
-                />
-              </TouchableOpacity>
-            ))
-          }
+        <List containerStyle={styles.container}>
+          {list.map(({ title, icon, onClickEvent }, i) => (
+            <TouchableOpacity key={i} onPress={onClickEvent}>
+              <ListItem
+                title={title}
+                titleStyle={styles.listItemTitle}
+                containerStyle={styles.listItem}
+                leftIcon={icon}
+                hideChevron
+              />
+            </TouchableOpacity>
+          ))}
         </List>
       </View>
     );
@@ -127,6 +116,5 @@ const styles = StyleSheet.create({
     fontFamily: 'Rubik-Regular',
   },
 });
-
 
 export default SettingsScreen;
