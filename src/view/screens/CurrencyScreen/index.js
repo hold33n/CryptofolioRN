@@ -33,11 +33,11 @@ class CurrencyScreen extends Component<Props, {}> {
 
   render() {
     const {
-      percent_change_24h,
-      market_cap_usd,
-      available_supply,
-      daily_value,
-      price_usd,
+      priceUsd,
+      percentChange24h,
+      marketCapUsd,
+      availableSupply,
+      dailyValue,
     } = this.props.coinData;
 
     return (
@@ -55,19 +55,19 @@ class CurrencyScreen extends Component<Props, {}> {
           <View>
             <View style={styles.currencyPrice}>
               <Text style={styles.currencyPriceSymbol}>$</Text>
-              <Text style={styles.currencyPriceValue}>{formatPricePrecision(+price_usd)}</Text>
+              <Text style={styles.currencyPriceValue}>{formatPricePrecision(+priceUsd)}</Text>
             </View>
             <View style={styles.currencyChange}>
-              {percent_change_24h > 0 ? (
+              {percentChange24h > 0 ? (
                 <Icon name="md-trending-up" type="ionicon" color={GREEN} size={20} />
               ) : (
                 <Icon name="md-trending-down" type="ionicon" color={RED} size={20} />
               )}
               <Text style={styles.currencyChangeText}>
-                {percent_change_24h > 0 ? (
-                  <Text style={styles.priceChangePlus}>{percent_change_24h}%</Text>
+                {percentChange24h > 0 ? (
+                  <Text style={styles.priceChangePlus}>{percentChange24h}%</Text>
                 ) : (
-                  <Text style={styles.priceChangeMinus}>{-percent_change_24h}%</Text>
+                  <Text style={styles.priceChangeMinus}>{-percentChange24h}%</Text>
                 )}
               </Text>
             </View>
@@ -77,7 +77,7 @@ class CurrencyScreen extends Component<Props, {}> {
             <View style={styles.currencyInfo}>
               <Text style={styles.currencyInfoName}>MARKET CAP</Text>
               <Text style={styles.currencyInfoValue}>
-                {currencyFormatter.format(market_cap_usd, {
+                {currencyFormatter.format(marketCapUsd, {
                   symbol: '$',
                   precision: 0,
                   format: '%s %v',
@@ -88,7 +88,7 @@ class CurrencyScreen extends Component<Props, {}> {
             <View style={styles.currencyInfo}>
               <Text style={styles.currencyInfoName}>VOLUME 24h</Text>
               <Text style={styles.currencyInfoValue}>
-                {currencyFormatter.format(daily_value, {
+                {currencyFormatter.format(dailyValue, {
                   symbol: '$',
                   precision: 0,
                   format: '%s %v',
@@ -99,7 +99,7 @@ class CurrencyScreen extends Component<Props, {}> {
             <View style={styles.currencyInfo}>
               <Text style={styles.currencyInfoName}>CIRCULATING SUPPLY</Text>
               <Text style={styles.currencyInfoValue}>
-                {currencyFormatter.format(available_supply, {
+                {currencyFormatter.format(availableSupply, {
                   precision: 0,
                   format: '%v', // %s is the symbol and %v is the value
                   thousand: ' ',

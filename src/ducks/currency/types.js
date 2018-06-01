@@ -1,23 +1,16 @@
 // @flow
 
-export type coinData = {|
-  id: string,
-  price_usd: number,
-  percent_change_24h: number,
-  market_cap_usd: number,
-  available_supply: number,
-  daily_value: number,
-|}
+import type { currencyData } from 'ducks/currencies/types';
 
 export type chartDataPoint = {|
   time: number,
   price: number,
-|}
+|};
 
 export type chartFilters = 'All' | '3M' | '1M' | '1W' | '24H';
 
 export type State = {|
-  +data: null | coinData,
+  +data: null | currencyData,
   +chartData: {
     market_cap_by_available_supply: chartDataPoint[],
     price_btc: chartDataPoint[],

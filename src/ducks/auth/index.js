@@ -5,7 +5,7 @@ import { baseURL } from 'config';
 import axios from 'axios';
 import { createAction, handleActions, combineActions } from 'redux-actions';
 import { AsyncStorage } from 'react-native';
-import type { State } from './types';
+import type { State, UserReq } from './types';
 import { NAVIGATE } from '../navigator';
 
 /**
@@ -98,7 +98,12 @@ export const toggleFormState = createAction(TOGGLE_FORM_STATE_REQUEST);
  * Sagas
  * */
 
-function* signInSaga({ payload: { email, password } }) {
+/* eslint-disable consistent-return */
+export function* signInSaga({
+  payload: { email, password },
+}: {
+  payload: UserReq,
+}): Generator<any, any, any> {
   const state = yield select(stateSelector);
 
   if (state.progress) return true;

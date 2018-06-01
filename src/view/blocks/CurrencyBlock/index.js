@@ -9,16 +9,16 @@ import type { Props } from './types';
 class CurrencyBlock extends React.PureComponent<Props, {}> {
   render() {
     const {
-      item: { name, symbol, price_usd, percent_change_24h },
+      item: { name, symbol, priceUsd, percentChange24h },
     } = this.props;
 
     let priceChange: boolean | React.Element<typeof Text> = false;
 
-    if (price_usd) {
-      if (percent_change_24h > 0) {
-        priceChange = <Text style={styles.priceChangePlus}>+{percent_change_24h}%</Text>;
+    if (priceUsd) {
+      if (percentChange24h > 0) {
+        priceChange = <Text style={styles.priceChangePlus}>+{percentChange24h}%</Text>;
       } else {
-        priceChange = <Text style={styles.priceChangeMinus}>{percent_change_24h}%</Text>;
+        priceChange = <Text style={styles.priceChangeMinus}>{percentChange24h}%</Text>;
       }
     }
 
@@ -27,12 +27,12 @@ class CurrencyBlock extends React.PureComponent<Props, {}> {
         <View style={styles.grid}>
           <View>
             <View style={styles.currencySymbol}>
-              <Text style={styles.currencySymbolText}>{price_usd ? symbol : name}</Text>
+              <Text style={styles.currencySymbolText}>{priceUsd ? symbol : name}</Text>
             </View>
           </View>
           <View>
             <Text style={styles.currencyPrice}>
-              {price_usd ? formatPricePrecision(+price_usd) : false}
+              {priceUsd ? formatPricePrecision(+priceUsd) : false}
             </Text>
             <Text style={styles.currencyChange}>{priceChange}</Text>
           </View>

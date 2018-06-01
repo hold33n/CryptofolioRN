@@ -20,11 +20,13 @@ class LineChart extends Component<Props, State> {
     store.dispatch(fetchChartData(this.props.coinId, 'All'));
   }
 
+  /* eslint-disable react/no-will-update-set-state */
   componentWillUpdate(nextProps) {
     if (!_.isEqual(nextProps, this.props)) {
       this.setState({ opacity: 0 });
     }
   }
+  /* eslint-enable react/no-will-update-set-state */
 
   toggleFilter = filterId => () => {
     if (filterId !== this.props.activeFilter)

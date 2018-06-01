@@ -1,6 +1,6 @@
 // @flow
 
-export type currencyData = {|
+export type currencyDataRes = {|
   id: string,
   name: string,
   key?: string,
@@ -11,7 +11,20 @@ export type currencyData = {|
   market_cap_usd: number,
   available_supply: number,
   ['24h_volume_usd']: number,
-|}
+|};
+
+export type currencyData = {|
+  id: string,
+  name: string,
+  key?: string,
+  symbol: string,
+  rank: string,
+  priceUsd: number,
+  percentChange24h: number,
+  marketCapUsd: number,
+  availableSupply: number,
+  dailyValue: number,
+|};
 
 export type State = {|
   +currenciesList: currencyData[],

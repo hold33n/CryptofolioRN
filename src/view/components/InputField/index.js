@@ -1,7 +1,6 @@
 // @flow
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { StyleSheet, View, Text, TextInput } from 'react-native';
 import { GREY_5 } from 'colors';
 import type { Props } from './types';
@@ -36,10 +35,5 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-InputField.propTypes = {
-  inputName: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-};
 
 export default InputField;

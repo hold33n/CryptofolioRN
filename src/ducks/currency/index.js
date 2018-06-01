@@ -4,8 +4,8 @@ import { takeEvery, put, select, call } from 'redux-saga/effects';
 import axios from 'axios';
 import { createSelector } from 'reselect';
 import { createAction, handleActions, combineActions } from 'redux-actions';
-import type { currencyData } from '../currencies/types';
-import type { coinData, State } from './types';
+import { formatCurrencyData } from 'utils/currency';
+import type { State } from './types';
 
 /**
  * Constants
@@ -107,21 +107,13 @@ export const refreshCoinData = createAction(REFRESH_COIN_REQUEST, (coinId, newFi
   coinId,
   newFilter,
 }));
-export const selectCurrency = createAction(
-  SELECT_CURRENCY,
-  (item: currencyData): coinData => {
-    const { id, price_usd, percent_change_24h, market_cap_usd, available_supply } = item;
-
-    const daily_value = item['24h_volume_usd'];
-
-    return { id, price_usd, percent_change_24h, market_cap_usd, available_supply, daily_value };
-  },
-);
+export const selectCurrency = createAction(SELECT_CURRENCY);
 
 /**
  * Sagas
  * */
 
+/* eslint-disable consistent-return */
 function generateRef(coinId, filter) {
   let startInterval: number = 0;
 
@@ -204,27 +196,12 @@ function* refreshCoinDataSaga({ payload }) {
 
     const response = yield call(axios, coinRef);
 
-    const {
-      id,
-      price_usd,
-      percent_change_24h,
-      market_cap_usd,
-      available_supply,
-    } = response.data[0];
-
-    const daily_value = response.data[0]['24h_volume_usd'];
+    const coinData = formatCurrencyData(response.data[0]);
 
     yield put({
       type: REFRESH_COIN_SUCCESS,
       payload: {
-        coinData: {
-          id,
-          price_usd,
-          percent_change_24h,
-          market_cap_usd,
-          available_supply,
-          daily_value,
-        },
+        coinData,
         chartData: data,
       },
     });

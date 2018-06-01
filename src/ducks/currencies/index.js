@@ -4,6 +4,7 @@ import { takeEvery, put, call, select } from 'redux-saga/effects';
 import axios from 'axios';
 import { createSelector } from 'reselect';
 import { createAction, handleActions, combineActions } from 'redux-actions';
+import { formatCurrencyData } from 'utils/currency';
 import type { State } from './types';
 
 /**
@@ -90,6 +91,7 @@ export const refreshCurrencies = createAction(REFRESH_CURRENCIES_REQUEST);
  * Sagas
  * */
 
+/* eslint-disable consistent-return */
 function* fetchCurrenciesLazySaga() {
   try {
     const state = yield select(stateSelector);
@@ -111,10 +113,7 @@ function* fetchCurrenciesLazySaga() {
     yield put({
       type: FETCH_CURRENCIES_SUCCESS,
       payload: {
-        currenciesList: data.map(el => ({
-          key: el.id,
-          ...el,
-        })),
+        currenciesList: data.map(el => formatCurrencyData(el)),
       },
     });
   } catch (error) {
@@ -146,10 +145,7 @@ function* refreshCurrenciesSaga() {
     yield put({
       type: REFRESH_CURRENCIES_SUCCESS,
       payload: {
-        currenciesList: data.map(el => ({
-          key: el.id,
-          ...el,
-        })),
+        currenciesList: data.map(el => formatCurrencyData(el)),
       },
     });
   } catch (error) {

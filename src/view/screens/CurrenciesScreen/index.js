@@ -26,7 +26,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
     <CurrencyRowItem
       item={item}
       navigator={this.props.navigator}
-      selectCurrency={() => store.dispatch(selectCurrency())}
+      selectCurrency={() => store.dispatch(selectCurrency(item))}
     />
   );
 

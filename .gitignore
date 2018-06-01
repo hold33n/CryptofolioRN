@@ -22,7 +22,7 @@
 # Gradle:
 .idea/gradle.xml
 .idea/libraries
-
+.vscode
 
 # dependencies
 /node_modules

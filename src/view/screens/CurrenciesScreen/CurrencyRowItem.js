@@ -6,7 +6,6 @@ import { GREY_80 } from 'colors';
 import { appName } from 'config';
 import { iconsMap } from 'assets/AppIcons';
 import CurrencyBlock from 'blocks/CurrencyBlock';
-import store from '../../../redux/store';
 import { styles } from './';
 import type { CurrencyRowItemProps } from './types';
 
@@ -17,7 +16,7 @@ export default class CurrencyRowItem extends PureComponent<CurrencyRowItemProps,
     return (
       <TouchableOpacity
         onPress={() => {
-          store.dispatch(selectCurrency(item));
+          selectCurrency();
 
           navigator.push({
             screen: `${appName}.Currency`,
