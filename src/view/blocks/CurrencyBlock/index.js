@@ -8,9 +8,7 @@ import type { Props } from './types';
 
 class CurrencyBlock extends React.PureComponent<Props, {}> {
   render() {
-    const {
-      item: { name, symbol, priceUsd, percentChange24h },
-    } = this.props;
+    const { name, symbol, priceUsd, percentChange24h } = this.props.item;
 
     let priceChange: boolean | React.Element<typeof Text> = false;
 
