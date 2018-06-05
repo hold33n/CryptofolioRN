@@ -1,14 +1,17 @@
 {
   "plugins": [
     "transform-react-jsx-source",
-    ["module-resolver", {
-      "root": ["./src"],
-      "alias": {
-        "blocks": "./src/view/blocks",
-        "components": "./src/view/components",
-        "screens": "./src/view/screens"
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "blocks": "./src/view/blocks",
+          "components": "./src/view/components",
+          "screens": "./src/view/screens"
+        }
       }
-    }]
+    ]
   ],
   "presets": [
     "react-native",

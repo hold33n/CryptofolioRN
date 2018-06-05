@@ -1,99 +1,47 @@
-import React, {PureComponent} from 'react';
-import PropTypes from 'prop-types';
-import { StyleSheet, RefreshControl, TouchableOpacity, View, Text, VirtualizedList } from 'react-native'
-import CurrencyBlock from 'blocks/CurrencyBlock'
-import CodePush from 'components/CodePush'
-import CurrenciesLoader from 'blocks/CurrenciesLoader'
-import { fetchCurrencies, refreshCurrencies, currenciesSelector, progressLoadSelector, progressReloadSelector } from 'ducks/currencies'
-import { searchPhraseSelector, searchCurrenciesResultsSelector } from 'ducks/currenciesSearch'
-import { selectCurrency } from 'ducks/currency'
-import Search from 'components/CurrenciesSearch'
-import { connect } from 'react-redux'
-import { appName } from 'config'
-import { GREY_5, GREY_80 } from 'colors'
-import { iconsMap } from 'assets/AppIcons'
+// @flow
 
+import React, { PureComponent } from 'react';
+import { StyleSheet, RefreshControl, View, Text, VirtualizedList } from 'react-native';
+import CodePush from 'components/CodePush';
+import CurrenciesLoader from 'blocks/CurrenciesLoader';
+import { fetchCurrencies, refreshCurrencies } from 'ducks/currencies';
+import {
+  searchPhraseSelector,
+  searchCurrenciesResultsSelector,
+} from 'ducks/currenciesSearch/index';
+import { selectCurrency } from 'ducks/currency';
+import Search from 'components/CurrenciesSearch';
+import { connect } from 'react-redux';
+import { GREY_5, GREY_80 } from 'colors';
+import store from '../../../redux/store';
+import CurrencyRowItem from './CurrencyRowItem';
+import type { CurrenciesScreenProps } from './types';
 
-class CurrencyRowItem extends PureComponent {
-  render() {
-
-    const { item, selectCurrency, navigator } = this.props
-
-    return (
-      <TouchableOpacity
-        onPress={() => {
-          selectCurrency(item)
-          navigator.push({
-            screen: `${appName}.Currency`,
-            backButtonHidden: false,
-            title: item.name.toUpperCase(),
-            navigatorStyle: {
-              navBarTranslucent: false,
-              drawUnderNavBar: true,
-              navBarTextColor: '#fff',
-              navBarBackgroundColor: GREY_80,
-              navBarButtonColor: 'white',
-              navBarNoBorder: true,
-              statusBarTextColorScheme: 'light',
-              screenBackgroundColor: GREY_80,
-            },
-            navigatorButtons: {
-              leftButtons: [
-                {
-                  id: 'closeCurrency',
-                  title: '',
-                  icon: iconsMap['ios-arrow-round-back'],
-                  buttonFontSize: 14,
-                }
-              ]
-            }
-          })
-        }}
-        style={styles.item}
-      >
-        <CurrencyBlock
-          item={item}
-        />
-      </TouchableOpacity>
-    )
-  }
-}
-
-
-
-@connect((state) => ({
-  currenciesList: currenciesSelector(state),
-  progressLoad: progressLoadSelector(state),
-  progressReload: progressReloadSelector(state),
-  searchPhrase: searchPhraseSelector(state),
-  searchCurrenciesResults: searchCurrenciesResultsSelector(state),
-}), { fetchCurrencies, refreshCurrencies, selectCurrency })
-class CurrenciesScreen extends PureComponent {
+class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
   componentDidMount() {
-    this.props.fetchCurrencies()
+    store.dispatch(fetchCurrencies());
   }
 
-  itemRenderer = ({ item }) => <CurrencyRowItem
-    item={item}
-    navigator={this.props.navigator}
-    selectCurrency={this.props.selectCurrency}
-  />
+  itemRenderer = ({ item }) => (
+    <CurrencyRowItem
+      item={item}
+      navigator={this.props.navigator}
+      selectCurrency={() => store.dispatch(selectCurrency(item))}
+    />
+  );
 
-  getItem = (data, index) => data[index].obj
+  getItem = (data, index) => data[index].obj;
 
-  getItemCount = data => data.length
-
-
+  getItemCount = data => data.length;
 
   render() {
+    const headerComponent = <Search />;
 
-    const headerComponent = <Search />
+    const { searchPhrase, searchCurrenciesResults, currenciesList } = this.props;
 
-    const { searchPhrase, searchCurrenciesResults, currenciesList } = this.props
+    const currenciesListData = currenciesList.map(el => ({ obj: el })).slice(0, 50);
 
-    const currenciesListData = currenciesList.map(el => ({obj: el})).slice(0, 50)
-
-    const EmptyView = <Text style={styles.emptyText}>No items to display</Text>
+    const EmptyView = <Text style={styles.emptyText}>No items to display</Text>;
 
     return this.props.currenciesList.length > 0 ? (
       <View>
@@ -110,30 +58,30 @@ class CurrenciesScreen extends PureComponent {
           refreshControl={
             <RefreshControl
               refreshing={this.props.progressReload}
-              onRefresh={this.props.refreshCurrencies}
+              onRefresh={() => store.dispatch(refreshCurrencies())}
             />
           }
           windowSize={5}
           maxToRenderPerBatch={2}
         />
-        {(searchPhrase && searchCurrenciesResults.length === 0) ? EmptyView : false }
+        {searchPhrase && searchCurrenciesResults.length === 0 ? EmptyView : false}
       </View>
     ) : (
       <View>
         {headerComponent}
-        <CurrenciesLoader/>
-        <CurrenciesLoader/>
-        <CurrenciesLoader/>
-        <CurrenciesLoader/>
-        <CurrenciesLoader/>
-        <CurrenciesLoader/>
-        <CurrenciesLoader/>
+        <CurrenciesLoader />
+        <CurrenciesLoader />
+        <CurrenciesLoader />
+        <CurrenciesLoader />
+        <CurrenciesLoader />
+        <CurrenciesLoader />
+        <CurrenciesLoader />
       </View>
-    )
+    );
   }
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     backgroundColor: GREY_80,
   },
@@ -148,13 +96,13 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     fontFamily: 'Rubik-Medium',
     marginTop: 10,
-  }
+  },
 });
 
-CurrenciesScreen.propTypes = {
-  titleTextColor: PropTypes.string,
-  changeTitleTextColor: PropTypes.func
-}
-
-
-export default CurrenciesScreen
+export default connect(state => ({
+  currenciesList: state.currencies.currenciesList,
+  progressLoad: state.currencies.progressLoad,
+  progressReload: state.currencies.progressReload,
+  searchPhrase: searchPhraseSelector(state),
+  searchCurrenciesResults: searchCurrenciesResultsSelector(state),
+}))(CurrenciesScreen);

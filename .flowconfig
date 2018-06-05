@@ -42,6 +42,8 @@ module.name_mapper='blocks' -> '<PROJECT_ROOT>/src/view/blocks'
 module.name_mapper='components' -> '<PROJECT_ROOT>/src/view/components'
 module.name_mapper='screens' -> '<PROJECT_ROOT>/src/view/screens'
 module.name_mapper='ducks' -> '<PROJECT_ROOT>/src/ducks'
+module.name_mapper='utils' -> '<PROJECT_ROOT>/src/utils'
+module.name_mapper='assets' -> '<PROJECT_ROOT>/src/assets'
 module.name_mapper='colors' -> '<PROJECT_ROOT>/src/colors.js'
 module.name_mapper='config' -> '<PROJECT_ROOT>/src/config.js'
 

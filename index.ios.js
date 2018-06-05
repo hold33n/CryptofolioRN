@@ -1,6 +1,7 @@
-import './src/fbConfig'
-import App from './src/App'
+// @flow
 
-const app = new App()
+import App from './src/App';
 
-export default app
+const app = new App();
+
+export default app;

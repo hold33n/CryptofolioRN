@@ -22,10 +22,13 @@
 # Gradle:
 .idea/gradle.xml
 .idea/libraries
-
+.vscode
 
 # dependencies
 /node_modules
+
+# Jest
+/jest
 
 # misc
 .env.local
@@ -40,3 +43,5 @@ yarn-error.log*
 # ios
 /ios/build
 /ios/Pods
+/ios/Cryptofolio/.DS_Store
+/ios/Vendor/.DS_Store

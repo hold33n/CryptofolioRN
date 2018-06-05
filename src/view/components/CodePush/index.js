@@ -1,16 +1,19 @@
-import React, {Component} from 'react'
-import codePush from 'react-native-code-push'
+// @flow
 
-@codePush
-class CodePush extends Component {
+import { Component } from 'react';
+import codePush from 'react-native-code-push';
+
+class CodePush extends Component<{}, {}> {
   componentDidMount() {
     codePush.sync({
       updateDialog: true,
-      installMode: codePush.InstallMode.IMMEDIATE
+      installMode: codePush.InstallMode.IMMEDIATE,
     });
   }
 
-  render () { return false }
+  render() {
+    return false;
+  }
 }
 
-export default CodePush
+export default codePush(CodePush);

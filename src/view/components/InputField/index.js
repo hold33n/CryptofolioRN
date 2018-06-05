@@ -1,18 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { StyleSheet, View, Text, TextInput} from 'react-native'
-import { GREY_5 } from 'colors'
+// @flow
 
-const InputField = ({ inputName, inputValue, handleChange, ...props }) =>
+import React from 'react';
+import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { GREY_5 } from 'colors';
+import type { Props } from './types';
+
+const InputField = ({ inputName, inputValue, handleChange, ...props }: Props) => (
   <View style={styles.inputField}>
     <Text style={styles.inputLabel}>{inputName}</Text>
-    <TextInput
-      style={styles.input}
-      onChangeText={handleChange}
-      value={inputValue}
-      {...props}
-    />
+    <TextInput style={styles.input} onChangeText={handleChange} value={inputValue} {...props} />
   </View>
+);
 
 const styles = StyleSheet.create({
   inputField: {
@@ -38,9 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-InputField.propTypes = {
-  inputName: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
-}
-
-export default InputField
+export default InputField;
