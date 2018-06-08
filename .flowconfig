@@ -45,6 +45,7 @@ module.name_mapper='ducks' -> '<PROJECT_ROOT>/src/ducks'
 module.name_mapper='utils' -> '<PROJECT_ROOT>/src/utils'
 module.name_mapper='assets' -> '<PROJECT_ROOT>/src/assets'
 module.name_mapper='colors' -> '<PROJECT_ROOT>/src/colors.js'
+module.name_mapper='navigationActions' -> '<PROJECT_ROOT>/src/navigationActions.js'
 module.name_mapper='config' -> '<PROJECT_ROOT>/src/config.js'
 
 

@@ -25,7 +25,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
   itemRenderer = ({ item }) => (
     <CurrencyRowItem
       item={item}
-      navigator={this.props.navigator}
+      navigation={this.props.navigation}
       selectCurrency={() => store.dispatch(selectCurrency(item))}
     />
   );
@@ -44,7 +44,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
     const EmptyView = <Text style={styles.emptyText}>No items to display</Text>;
 
     return this.props.currenciesList.length > 0 ? (
-      <View>
+      <View key="content">
         <CodePush />
         <VirtualizedList
           data={searchPhrase ? searchCurrenciesResults : currenciesListData}
@@ -67,7 +67,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
         {searchPhrase && searchCurrenciesResults.length === 0 ? EmptyView : false}
       </View>
     ) : (
-      <View>
+      <View key="content" style={styles.container}>
         {headerComponent}
         <CurrenciesLoader />
         <CurrenciesLoader />
@@ -84,6 +84,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: GREY_80,
+    height: '100%',
   },
   item: {
     paddingLeft: 15,

@@ -1,8 +1,8 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { StyleSheet } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { StyleSheet, View, Text } from 'react-native';
+// import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
 import {
   addSearchPhrase,
@@ -27,18 +27,21 @@ class Search extends PureComponent<Props, {}> {
     const clearIcon = searchPhrase ? { color: '#A0AAC9', name: 'close' } : false;
 
     return (
-      <SearchBar
-        placeholder="Type Here..."
-        platform="ios"
-        cancelButtonTitle="Cancel"
-        containerStyle={styles.searchBar}
-        inputStyle={styles.searchInput}
-        icon={{ type: 'material', color: '#A0AAC9', name: 'search' }}
-        placeholderTextColor="#A0AAC9"
-        onChangeText={this.handleTextChange}
-        clearIcon={clearIcon}
-        round
-      />
+      // <SearchBar
+      //   placeholder="Type Here..."
+      //   platform="ios"
+      //   cancelButtonTitle="Cancel"
+      //   containerStyle={styles.searchBar}
+      //   inputStyle={styles.searchInput}
+      //   icon={{ type: 'material', color: '#A0AAC9', name: 'search' }}
+      //   placeholderTextColor="#A0AAC9"
+      //   onChangeText={this.handleTextChange}
+      //   clearIcon={clearIcon}
+      //   round
+      // />
+      <View>
+        <Text>SearchBar</Text>
+      </View>
     );
   }
 }

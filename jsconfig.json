@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "blocks/*": ["./src/view/blocks/*"],
+      "components/*": ["./src/view/components/*"],
+      "screens/*": ["./src/view/screens/*"]
+    }
+  }
+}

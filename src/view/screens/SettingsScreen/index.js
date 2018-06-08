@@ -1,9 +1,9 @@
 // @flow
 
 import React, { Component } from 'react';
-import { StatusBar, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { signOut } from 'ducks/auth/index';
-import { List, ListItem } from 'react-native-elements';
+// import { List, ListItem } from 'react-native-elements';
 import { GREY_5, GREY_80, GREY_100 } from 'colors';
 import store from '../../../redux/store';
 
@@ -38,55 +38,32 @@ class SettingsScreen extends Component<{}, {}> {
     const list = [
       {
         title: 'Reset password',
-        icon: {
-          name: 'ios-refresh-outline',
-          type: 'ionicon',
-          size: 28,
-          style: {
-            height: 28,
-            width: 25,
-            lineHeight: 28,
-            marginRight: 4,
-            color: GREY_5,
-          },
-        },
         onClickEvent: null,
       },
       {
         title: 'Sign out',
-        icon: {
-          name: 'ios-log-out',
-          type: 'ionicon',
-          size: 24,
-          style: {
-            height: 24,
-            width: 25,
-            lineHeight: 24,
-            marginRight: 4,
-            color: GREY_5,
-          },
-        },
         onClickEvent: () => store.dispatch(signOut()),
       },
     ];
 
     return (
-      <View>
-        <StatusBar barStyle="light-content" />
+      <View style={styles.container}>
         <Text style={styles.email}>Your email: asd</Text>
-        <List containerStyle={styles.container}>
-          {list.map(({ title, icon, onClickEvent }, i) => (
+        <TouchableOpacity onPress={() => store.dispatch(signOut())}>
+          <Text>Sign out</Text>
+        </TouchableOpacity>
+        {/* <List containerStyle={styles.container}> */}
+        {/* {list.map(({ title, onClickEvent }, i) => (
             <TouchableOpacity key={i} onPress={onClickEvent}>
               <ListItem
                 title={title}
                 titleStyle={styles.listItemTitle}
                 containerStyle={styles.listItem}
-                leftIcon={icon}
                 hideChevron
               />
             </TouchableOpacity>
-          ))}
-        </List>
+          ))} */}
+        {/* </List> */}
       </View>
     );
   }
@@ -97,7 +74,6 @@ const styles = StyleSheet.create({
     backgroundColor: GREY_80,
     borderTopWidth: 0,
     height: '100%',
-    marginTop: 20,
   },
   email: {
     textAlign: 'center',
