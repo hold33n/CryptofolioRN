@@ -18,8 +18,18 @@ export default class CurrencyRowItem extends PureComponent<CurrencyRowItemProps,
         onPress={() => {
           selectCurrency();
 
-          navigation.push('CurrencyInfoScreen', {
-            activeCurrencyName: item.name,
+          // navigation.push('CurrencyInfoScreen', {
+          //   activeCurrencyName: item.name,
+          // });
+
+          navigation.dispatch({
+            type: 'NAVIGATOR/NAVIGATE',
+            payload: {
+              screenName: 'CurrencyInfoScreen',
+              props: {
+                activeCurrencyName: item.name,
+              },
+            },
           });
 
           // navigator.push({

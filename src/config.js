@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { AppRegistry } from 'react-native';
-import App from './App';
+import Root from '../index';
 import AuthScreen from 'screens/AuthScreen';
 import CurrenciesScreen from 'screens/CurrenciesScreen';
 import CurrencyScreen from 'screens/CurrencyScreen';
@@ -34,7 +34,7 @@ export const baseURL: string = 'https://cryptofolio-condor.herokuapp.com/api/';
 // }
 
 export function registerScreens(store: any, Provider: any) {
-  AppRegistry.registerComponent('Cryptofolio', () => App);
+  AppRegistry.registerComponent('Cryptofolio', () => Root);
   // AppRegistry.registerComponent(`${appName}.Auth`, () => AuthScreen, store, Provider);
   // AppRegistry.registerComponent(
   //   `${appName}.CurrenciesList`,

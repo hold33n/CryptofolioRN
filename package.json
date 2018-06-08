@@ -28,6 +28,7 @@
     "react-native-code-push": "^5.3.2",
     "react-native-highcharts": "^1.0.2",
     "react-navigation": "^2.2.3",
+    "react-navigation-redux-helpers": "^1.1.2",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-actions": "^2.3.2",

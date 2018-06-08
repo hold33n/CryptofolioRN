@@ -7,7 +7,7 @@ const HeaderBackButton = ({ navigation }: { navigation: Object }) => (
   <TouchableOpacity
     style={styles.backButton}
     onPress={() => {
-      navigation.goBack();
+      navigation.dispatch({ type: 'NAVIGATOR/NAVIGATE_BACK' });
     }}
   >
     <Image style={styles.backButtonIcon} source={require('assets/img/arrow-back.png')} />
