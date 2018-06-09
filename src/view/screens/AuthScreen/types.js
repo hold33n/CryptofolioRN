@@ -1,11 +1,12 @@
 // @flow
 
-import type {UserReq} from '../../../ducks/auth/types';
+import type { UserReq } from '../../../ducks/auth/types';
 
 export type State = UserReq;
 
-export type Props = {
-  formState: 'SignIn' | 'SignUp';
-  progress: boolean;
-  error: string;
-};
+export type Props = {|
+  formState: 'SignIn' | 'SignUp',
+  progress: boolean,
+  error: string,
+  navigation: Object,
+|};

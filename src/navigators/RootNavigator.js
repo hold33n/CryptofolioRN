@@ -1,12 +1,17 @@
 import React from 'react';
 import { GREY_5, GREY_80, GREY_100 } from 'colors';
-import { Image, Text } from 'react-native';
+import { Image, Text, AsyncStorage } from 'react-native';
+import AuthScreen from 'screens/AuthScreen';
 import CurrenciesScreen from 'screens/CurrenciesScreen';
 import CurrencyScreen from 'screens/CurrencyScreen';
 import PortfolioScreen from 'screens/PortfolioScreen';
 import SettingsScreen from 'screens/SettingsScreen';
 import HeaderBackButton from 'components/HeaderBackButton';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import {
+  createStackNavigator,
+  createBottomTabNavigator,
+  createSwitchNavigator,
+} from 'react-navigation';
 
 const BottomTabsConfig = {
   initialRouteName: 'Currencies',
@@ -33,7 +38,7 @@ const TopStackTitleConfig = {
   color: '#fff',
 };
 
-const RouteConfigs = {
+const DashboardRouteConfigs = {
   Currencies: {
     screen: createStackNavigator(
       {
@@ -55,9 +60,9 @@ const RouteConfigs = {
           }),
         },
       },
-      // {
-      //   initialRouteName: 'CurrenciesListScreen',
-      // },
+      {
+        initialRouteName: 'CurrenciesListScreen',
+      },
     ),
     navigationOptions: () => ({
       tabBarIcon: ({ focused, tintColor }) =>
@@ -121,4 +126,17 @@ const RouteConfigs = {
   },
 };
 
-export const RootNavigator = createBottomTabNavigator(RouteConfigs, BottomTabsConfig);
+const DashboardNavigator = createBottomTabNavigator(DashboardRouteConfigs, BottomTabsConfig);
+
+const fetchUserId = async () => {
+  const userId = await AsyncStorage.getItem('userId');
+
+  return userId;
+};
+
+const userId = fetchUserId();
+
+export const AppNavigator = createSwitchNavigator({
+  Auth: AuthScreen,
+  Dashboard: DashboardNavigator,
+});

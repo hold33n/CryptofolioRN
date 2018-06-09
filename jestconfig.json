@@ -1,5 +1,10 @@
 {
-  "cacheDirectory": "./jest",
+  "preset": "react-native",
   "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(jsx|js)$",
-  "moduleFileExtensions": ["jsx", "jsc"]
+  "moduleFileExtensions": ["jsx", "js"],
+  "transform": {},
+  "transformIgnorePatterns": [
+    "node_modules/(?!(react-native|react-native-vector-icons|react-native-elements|react-native-navigation|react-native-code-push)/)"
+  ],
+  "moduleDirectories": [".", "src", "node_modules"]
 }

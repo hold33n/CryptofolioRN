@@ -1,6 +1,5 @@
 {
   "plugins": [
-    "transform-react-jsx-source",
     [
       "module-resolver",
       {
@@ -14,6 +13,7 @@
     ]
   ],
   "presets": [
+    "env",
     "react-native",
     "flow",
     "babel-preset-react-native-stage-0/decorator-support"

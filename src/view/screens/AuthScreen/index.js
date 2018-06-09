@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import { StatusBar, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { AsyncStorage, StatusBar, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import InputField from 'components/InputField';
 import CodePush from 'components/CodePush';
 import { connect } from 'react-redux';
@@ -26,10 +26,17 @@ class AuthScreen extends Component<Props, State> {
       : store.dispatch(signIn({ email: this.state.email, password: this.state.password }));
 
   render() {
+    const fetchUserId = async () => {
+      const userId = await AsyncStorage.getItem('userId');
+
+      if (userId) {
+        this.props.navigation.navigate('CurrenciesListScreen');
+      }
+    };
+
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
-
         <CodePush />
 
         <Text style={styles.title}>

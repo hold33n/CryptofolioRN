@@ -10,7 +10,7 @@
     "debug": "open 'rndebugger://set-debugger-loc?host=localhost&port=8081'",
     "codepush": "appcenter codepush release-react",
     "flow": "flow",
-    "test": "jest --config=jestconfig.json -u --notify",
+    "test": "./node_modules/.bin/jest --no-cache --config=jestconfig.json -u --notify",
     "lint": "./node_modules/.bin/eslint ."
   },
   "dependencies": {
@@ -42,6 +42,7 @@
     "babel-eslint": "^8.2.3",
     "babel-jest": "22.4.3",
     "babel-plugin-module-resolver": "^3.1.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react-native": "4.0.0",
     "babel-preset-react-native-stage-0": "^1.0.1",
@@ -59,9 +60,6 @@
     "react-devtools": "^3.2.1",
     "react-test-renderer": "16.3.1",
     "redux-devtools-extension": "^2.13.2"
-  },
-  "jest": {
-    "preset": "react-native"
   },
   "rnpm": {
     "assets": [
