@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.microsoft.codepush.react.CodePush;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.reactnativenavigation.NavigationReactPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativenavigation.NavigationReactPackage;
@@ -37,8 +35,6 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
-            new VectorIconsPackage(),
-            new NavigationReactPackage(),
             new LottiePackage(),
             new VectorIconsPackage(),
             new NavigationReactPackage(),

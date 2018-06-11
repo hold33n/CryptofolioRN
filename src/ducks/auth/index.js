@@ -6,7 +6,7 @@ import axios from 'axios';
 import { createAction, handleActions, combineActions } from 'redux-actions';
 import { AsyncStorage } from 'react-native';
 import type { State, UserReq } from './types';
-import { NAVIGATE } from '../navigator';
+import { navigate } from '../navigator';
 
 /**
  * Constants
@@ -134,10 +134,7 @@ export function* signInSaga({
 
     yield AsyncStorage.setItem('userId', user.id);
 
-    yield put({
-      type: NAVIGATE,
-      payload: { path: 'appRoot' },
-    });
+    yield put(navigate('CurrenciesListScreen'));
   } catch (res) {
     yield put({
       type: SIGN_IN_FAIL,
@@ -177,10 +174,7 @@ function* signUpSaga({ payload: { email, password } }) {
       type: SIGN_UP_SUCCESS,
     });
 
-    yield put({
-      type: NAVIGATE,
-      payload: { path: 'appRoot' },
-    });
+    yield put(navigate('CurrenciesListScreen'));
 
     yield AsyncStorage.setItem('userId', user.id);
   } catch (res) {
@@ -203,10 +197,7 @@ function* signOutSaga() {
 
     yield put({ type: SIGN_OUT_SUCCESS });
 
-    yield put({
-      type: NAVIGATE,
-      payload: { path: 'auth' },
-    });
+    yield put(navigate('Auth'));
   } catch (error) {
     yield put({
       type: SIGN_OUT_FAIL,

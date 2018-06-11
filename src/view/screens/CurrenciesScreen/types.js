@@ -5,12 +5,12 @@ import type { State as CurrenciesState, currencyData } from 'ducks/currencies/ty
 export type CurrencyRowItemProps = {
   item: currencyData,
   selectCurrency: Function,
-  navigator: Object,
+  navigation: Object,
 };
 
 export type CurrenciesScreenProps = {
   ...CurrenciesState,
   searchPhrase: string,
   searchCurrenciesResults: currencyData[],
-  navigator: Object,
+  navigation: Object,
 };

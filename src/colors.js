@@ -11,3 +11,5 @@ export const GREY_MARKER_BG: string = '#242537';
 
 export const RED: string = '#FF4465';
 export const GREEN: string = '#3FE77B';
+
+// Icon active color: #3DB5FF

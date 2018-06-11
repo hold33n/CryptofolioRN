@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { StyleSheet, RefreshControl, View, Text, VirtualizedList } from 'react-native';
+import { StyleSheet, StatusBar, RefreshControl, View, Text, VirtualizedList } from 'react-native';
 import CodePush from 'components/CodePush';
 import CurrenciesLoader from 'blocks/CurrenciesLoader';
 import { fetchCurrencies, refreshCurrencies } from 'ducks/currencies';
@@ -25,7 +25,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
   itemRenderer = ({ item }) => (
     <CurrencyRowItem
       item={item}
-      navigator={this.props.navigator}
+      navigation={this.props.navigation}
       selectCurrency={() => store.dispatch(selectCurrency(item))}
     />
   );
@@ -44,7 +44,8 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
     const EmptyView = <Text style={styles.emptyText}>No items to display</Text>;
 
     return this.props.currenciesList.length > 0 ? (
-      <View>
+      <View key="content">
+        <StatusBar barStyle="light-content" />
         <CodePush />
         <VirtualizedList
           data={searchPhrase ? searchCurrenciesResults : currenciesListData}
@@ -67,7 +68,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
         {searchPhrase && searchCurrenciesResults.length === 0 ? EmptyView : false}
       </View>
     ) : (
-      <View>
+      <View key="content" style={styles.container}>
         {headerComponent}
         <CurrenciesLoader />
         <CurrenciesLoader />
@@ -84,6 +85,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: GREY_80,
+    height: '100%',
   },
   item: {
     paddingLeft: 15,

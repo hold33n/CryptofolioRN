@@ -1,8 +1,4 @@
 // @flow
-
-import { createAction, handleActions } from 'redux-actions';
-import type { State } from './types';
-
 /**
  * Constants
  * */
@@ -10,25 +6,11 @@ import type { State } from './types';
 export const moduleName: string = 'navigator';
 
 export const NAVIGATE: 'NAVIGATOR/NAVIGATE' = 'NAVIGATOR/NAVIGATE';
+export const NAVIGATE_BACK: 'NAVIGATOR/NAVIGATE_BACK' = 'NAVIGATOR/NAVIGATE_BACK';
 
 /**
  * Reducer
  * */
-
-const initialState = {
-  path: '',
-};
-
-const navigatorReducer = handleActions(
-  {
-    [NAVIGATE]: (state: State, action) => ({
-      path: action.payload.path,
-    }),
-  },
-  initialState,
-);
-
-export default navigatorReducer;
 
 /**
  * Selectors
@@ -38,7 +20,11 @@ export default navigatorReducer;
  * Action Creators
  * */
 
-export const navigate = createAction(NAVIGATE, path => ({ path }));
+export const navigate = (routeName: string, params?: Object) => ({
+  type: 'Navigation/NAVIGATE',
+  routeName,
+  params,
+});
 
 /**
  * Sagas

@@ -1,36 +1,18 @@
 // @flow
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, RefreshControl, ScrollView } from 'react-native';
+import { StyleSheet, Text, Image, View, RefreshControl, ScrollView } from 'react-native';
 import LineChart from 'components/LineChart';
 import currencyFormatter from 'currency-formatter';
-import { refreshCoinData } from 'ducks/currency/index';
+import { refreshCoinData } from 'ducks/currency';
 import { connect } from 'react-redux';
-import { Icon } from 'react-native-elements';
+// import { Icon } from 'react-native-elements';
 import { GREEN, RED, GREY_80, GREY_10 } from 'colors';
 import { formatPricePrecision } from 'utils/currency';
 import store from '../../../redux/store';
 import type { Props } from './types';
 
 class CurrencyScreen extends Component<Props, {}> {
-  constructor(props) {
-    super(props);
-    this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
-  }
-
-  onNavigatorEvent(event) {
-    // this is the onPress handler for the two buttons together
-    if (event.type === 'NavBarButtonPress') {
-      // this is the event type for button presses
-      if (event.id === 'closeCurrency') {
-        // this is the same id field from the static navigatorButtons definition
-        this.props.navigator.pop({
-          animated: true, // does the pop have transition animation or does it happen immediately (optional)
-        });
-      }
-    }
-  }
-
   render() {
     const {
       priceUsd,
@@ -59,9 +41,15 @@ class CurrencyScreen extends Component<Props, {}> {
             </View>
             <View style={styles.currencyChange}>
               {percentChange24h > 0 ? (
-                <Icon name="md-trending-up" type="ionicon" color={GREEN} size={20} />
+                <Image
+                  style={{ width: 21, height: 12 }}
+                  source={require('assets/img/trending-up.png')}
+                />
               ) : (
-                <Icon name="md-trending-down" type="ionicon" color={RED} size={20} />
+                <Image
+                  style={{ width: 21, height: 12 }}
+                  source={require('assets/img/trending-down.png')}
+                />
               )}
               <Text style={styles.currencyChangeText}>
                 {percentChange24h > 0 ? (

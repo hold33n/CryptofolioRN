@@ -1,15 +1,14 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { StyleSheet } from 'react-native';
-import { SearchBar } from 'react-native-elements';
+import { StyleSheet, TextInput, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import {
   addSearchPhrase,
   clearSearchPhrase,
   searchPhraseSelector,
 } from 'ducks/currenciesSearch/index';
-import { GREY_60, GREY_80 } from 'colors';
+import { GREY_20, GREY_80, GREY_MARKER_BG } from 'colors';
 import store from '../../../redux/store';
 import type { Props } from './types';
 
@@ -27,18 +26,26 @@ class Search extends PureComponent<Props, {}> {
     const clearIcon = searchPhrase ? { color: '#A0AAC9', name: 'close' } : false;
 
     return (
-      <SearchBar
-        placeholder="Type Here..."
-        platform="ios"
-        cancelButtonTitle="Cancel"
-        containerStyle={styles.searchBar}
-        inputStyle={styles.searchInput}
-        icon={{ type: 'material', color: '#A0AAC9', name: 'search' }}
-        placeholderTextColor="#A0AAC9"
-        onChangeText={this.handleTextChange}
-        clearIcon={clearIcon}
-        round
-      />
+      // <SearchBar
+      //   placeholder="Type Here..."
+      //   platform="ios"
+      //   cancelButtonTitle="Cancel"
+      //   containerStyle={styles.searchBar}
+      //   inputStyle={styles.searchInput}
+      //   icon={{ type: 'material', color: '#A0AAC9', name: 'search' }}
+      //   placeholderTextColor="#A0AAC9"
+      //   onChangeText={this.handleTextChange}
+      //   clearIcon={clearIcon}
+      //   round
+      // />
+      <View style={styles.searchBar}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Type Here..."
+          placeholderTextColor={GREY_20}
+          onChangeText={this.handleTextChange}
+        />
+      </View>
     );
   }
 }
@@ -46,22 +53,20 @@ class Search extends PureComponent<Props, {}> {
 const styles = StyleSheet.create({
   searchBar: {
     backgroundColor: GREY_80,
-    paddingTop: -1,
-    paddingBottom: 5,
-    paddingLeft: 0,
-    paddingRight: 0,
-    marginLeft: 5,
-    marginBottom: 20,
-    borderTopWidth: 0,
-    borderBottomWidth: 0,
+    paddingLeft: 15,
+    paddingRight: 15,
+    marginBottom: 25,
   },
   searchInput: {
-    backgroundColor: GREY_60,
+    backgroundColor: GREY_MARKER_BG,
     color: '#fff',
     fontFamily: 'Rubik-Regular',
     fontSize: 16,
-    paddingLeft: 28,
     borderRadius: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
 });
 

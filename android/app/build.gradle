@@ -139,8 +139,6 @@ android {
 
 dependencies {
     compile project(':react-native-code-push')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-navigation')
     compile project(':lottie-react-native')
     compile project(':react-native-vector-icons')
     compile project(':react-native-navigation')
