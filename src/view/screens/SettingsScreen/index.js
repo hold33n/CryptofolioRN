@@ -3,41 +3,27 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { signOut } from 'ducks/auth/index';
-// import { List, ListItem } from 'react-native-elements';
-import { GREY_5, GREY_80, GREY_100 } from 'colors';
+import { List, ListItem } from 'native-base';
+import { GREY_5, GREY_MARKER_BG, GREY_80, GREY_100 } from 'colors';
 import store from '../../../redux/store';
 
 class SettingsScreen extends Component<{}, {}> {
-  static get options(): Object {
-    return {
-      topBar: {
-        title: 'Settings',
-        translucent: false,
-        transparent: false,
-        drawUnder: true,
-        textColor: '#fff',
-        backgroundColor: GREY_80,
-        buttonColor: 'white',
-        noBorder: true,
-        largeTitle: false,
-      },
-      bottomTabs: {
-        translucent: false,
-        drawUnder: true,
-        textColor: '#fff',
-        selectedTextColor: 'red',
-        backgroundColor: GREY_100,
-      },
-      bottomTab: {
-        title: 'Settings',
-      },
-    };
-  }
-
   render() {
     const list = [
       {
-        title: 'Reset password',
+        title: 'Change passcode',
+        onClickEvent: null,
+      },
+      {
+        title: 'Change email',
+        onClickEvent: null,
+      },
+      {
+        title: 'Change password',
+        onClickEvent: null,
+      },
+      {
+        title: 'About',
         onClickEvent: null,
       },
       {
@@ -48,22 +34,15 @@ class SettingsScreen extends Component<{}, {}> {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.email}>Your email: asd</Text>
-        <TouchableOpacity onPress={() => store.dispatch(signOut())}>
-          <Text>Sign out</Text>
-        </TouchableOpacity>
-        {/* <List containerStyle={styles.container}> */}
-        {/* {list.map(({ title, onClickEvent }, i) => (
-            <TouchableOpacity key={i} onPress={onClickEvent}>
-              <ListItem
-                title={title}
-                titleStyle={styles.listItemTitle}
-                containerStyle={styles.listItem}
-                hideChevron
-              />
-            </TouchableOpacity>
-          ))} */}
-        {/* </List> */}
+        {list.map(({ title, onClickEvent }, index) => (
+          <TouchableOpacity
+            style={[styles.listItem, index % 2 === 0 ? styles.listItemAccent : null]}
+            onPress={onClickEvent}
+            key={title}
+          >
+            <Text style={styles.listItemTitle}>{title}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
     );
   }
@@ -74,6 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: GREY_80,
     borderTopWidth: 0,
     height: '100%',
+    paddingTop: 30,
   },
   email: {
     textAlign: 'center',
@@ -84,11 +64,17 @@ const styles = StyleSheet.create({
   listItem: {
     borderTopWidth: 0,
     borderBottomWidth: 0,
-    paddingLeft: 10,
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  listItemAccent: {
+    backgroundColor: GREY_MARKER_BG,
   },
   listItemTitle: {
-    color: GREY_5,
-    fontSize: 16,
+    color: '#fff',
+    fontSize: 15,
     fontFamily: 'Rubik-Regular',
   },
 });

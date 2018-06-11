@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react';
-import { StyleSheet, RefreshControl, View, Text, VirtualizedList } from 'react-native';
+import { StyleSheet, StatusBar, RefreshControl, View, Text, VirtualizedList } from 'react-native';
 import CodePush from 'components/CodePush';
 import CurrenciesLoader from 'blocks/CurrenciesLoader';
 import { fetchCurrencies, refreshCurrencies } from 'ducks/currencies';
@@ -45,6 +45,7 @@ class CurrenciesScreen extends PureComponent<CurrenciesScreenProps, {}> {
 
     return this.props.currenciesList.length > 0 ? (
       <View key="content">
+        <StatusBar barStyle="light-content" />
         <CodePush />
         <VirtualizedList
           data={searchPhrase ? searchCurrenciesResults : currenciesListData}

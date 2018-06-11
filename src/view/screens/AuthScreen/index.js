@@ -34,6 +34,8 @@ class AuthScreen extends Component<Props, State> {
       }
     };
 
+    fetchUserId();
+
     return (
       <View style={styles.container}>
         <StatusBar barStyle="light-content" />
